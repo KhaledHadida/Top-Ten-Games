@@ -1,8 +1,0 @@
-{
-    "jwtSecret": "",
-    "igdb":{
-        "Client-ID": "",
-        "Authorization": ""
-    }
-
-}
