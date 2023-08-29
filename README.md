@@ -7,6 +7,7 @@ Add a default.json file in config folder with the following:
 ```
 {
     "jwtSecret": "",
+    "mongoURI": "",
     "igdb":{
         "Client-ID": "",
         "Authorization": ""
