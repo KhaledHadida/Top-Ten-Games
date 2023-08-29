@@ -34,8 +34,6 @@ router.post(
 
       const gameList = await TopTen.findOne({ user: req.user.id });
 
-      console.log(gameList);
-
       // if the game already exists in the list, return an error
       if (
         gameList.topGames.filter(
@@ -46,28 +44,20 @@ router.post(
       }
 
       // fetch the game cover image URL
-      getCoverImg(req.body.name)
-        .then((coverImg) => {
-          // add the game to the game list
-          // rank is automatically added based on the number of games in the list, so it will always be the last one
-          const newGame = {
-            name: req.body.name,
-            gameCoverURL: coverImg,
-            reviewDescription: req.body.reviewDescription,
-            rank: gameList.topGames.length + 1,
-          };
+      const coverImageUrl = await getCoverImg(req.body.name);
 
-          gameList.topGames.push(newGame);
-        })
-        .catch((error) => {
-          if (error.response) {
-            console.error('API responded with status:', error.response.status);
-            console.error('Error data:', error.response.data);
-          } else {
-            console.error('Error making the request:', error.message);
-          }
-        });
+      // add the game to the game list
+      // rank is automatically added based on the number of games in the list, so it will always be the last one
+      const newGame = {
+        name: req.body.name,
+        gameCoverURL: coverImageUrl,
+        reviewDescription: req.body.reviewDescription,
+        rank: gameList.topGames.length + 1,
+      };
 
+      gameList.topGames.push(newGame);
+
+      // save the game list
       await gameList.save();
 
       res.json(gameList.topGames);

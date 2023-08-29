@@ -2,12 +2,21 @@ const axios = require('axios');
 
 //So we can access the Client-ID & Authorization
 const config = require('config');
-
 const clientId = config.get('igdb.Client-ID');
 const accessToken = config.get('igdb.Authorization');
 
+const GameForDB = require('./models/GameForDB');
+
 //Retrieve game cover image URL from IGDB API
-const getCoverImg = (gameName) => {
+const getCoverImg = async (gameName) => {
+  // first check if the img is already in the database, if so then return it, otherwise call the API
+  const result = await GameForDB.findOne({ name: gameName });
+
+  if (result) {
+    return result.ImageURL;
+  }
+
+  // other wise call the API
   const url = 'https://api.igdb.com/v4/games';
   const body = `search "${gameName}"; fields cover.image_id; limit 1;`;
   const headers = {
@@ -24,6 +33,14 @@ const getCoverImg = (gameName) => {
 
       //Put the img ID into URL so we can send it back
       var coverImageUrl = `https://images.igdb.com/igdb/image/upload/t_cover_big/${coverImgId}.jpg`;
+
+      // store the game name and image URL to the database
+      const newGameForDB = new GameForDB({
+        name: gameName,
+        ImageURL: coverImageUrl,
+      });
+
+      newGameForDB.save();
 
       //return img URL
       return coverImageUrl;
