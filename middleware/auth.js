@@ -10,10 +10,10 @@ function authMiddleware(req, res, next) {
     try {
         // Verify the token using JWT
         const decoded = jwt.verify(token, config.get('jwtSecret'));
-    
+
         // Set the user object in the request
         req.user = decoded.user;
-    
+
         // Proceed to the next middleware or route handler
         next();
       } catch (err) {

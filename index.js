@@ -12,7 +12,7 @@ connectDB();
 
 //Establish APIs
 app.use('/api/users', require('./api/users'));
-app.use('/api/GameList', require('./api/GameList'));
+app.use('/api/gameList', require('./api/gameList'));
 app.use('/api/auth', require('./api/auth'));
 
 

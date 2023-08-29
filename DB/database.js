@@ -1,7 +1,8 @@
 //dependency for mongoose
 const mongoose = require('mongoose');
 //our link to the mongoose server
-const db = "mongodb://127.0.0.1:27017/topgames";
+const config = require('config');
+const db = config.get('mongoURI');
 
 //Connect to the mongodb 
 const connectDB = async () => {
