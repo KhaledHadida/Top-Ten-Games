@@ -7,11 +7,10 @@ export default function Header() {
     const [data, setData] = useState({});
     return (
         <header>
-
             <ul className="flex items-center justify-between bg-red-400">
                 <h1 className="font-extrabold pl-10 py-2" style={{ fontSize: 25 }}>Top Ten Games</h1>
                 <li className="mr-6">
-                    <a className="text-blue-500 hover:text-blue-800" href="">Users</a>
+                    <a className="text-blue-500 hover:text-blue-800" href="users">Users</a>
                 </li>
                 <li className="mr-6">
                     <a className="text-blue-500 hover:text-blue-800" href="mygames">My Games</a>
@@ -24,7 +23,6 @@ export default function Header() {
                 </li> */}
                 <button className="mr-6 bg-red-400 px-4 py-2" onClick={handleSignIn}>Sign in</button>
             </ul>
-
         </header>
     )
 }
