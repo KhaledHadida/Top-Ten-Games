@@ -1,12 +1,12 @@
 import { onDelete } from "../screens/mygames"
-import { TriggerEdit } from "./editgameentry"
-import EditGameEntry from "./editgameentry"
 import { useState } from "react";
+import EditGameEntryPanel from "./editgameentrypanel";
 
 export default function GameEntry({ id, name, reviewDescription, rank, gamePicture, onDelete }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
+    console.log("true");
     setIsModalOpen(true);
   };
 
@@ -31,7 +31,7 @@ export default function GameEntry({ id, name, reviewDescription, rank, gamePictu
           </div>
           <div className="relative h-32 w-32">
             {/* Edit button */}
-            <button onClick={() => {openModal}} className="absolute top-0 right-10 h-12 w-24  bg-green-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+            <button onClick={openModal} className="absolute top-0 right-10 h-12 w-24  bg-green-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
               Edit
             </button>
             {/* X button */}
@@ -44,13 +44,14 @@ export default function GameEntry({ id, name, reviewDescription, rank, gamePictu
         </div>
       </div>
       {isModalOpen && (
-        <EditGameEntry
+        <EditGameEntryPanel
           id={id}
           name={name}
           reviewDescription={reviewDescription}
           rank={rank}
           gamePicture={gamePicture}
-          onClose={closeModal} // Pass a function to close the modal
+          showModal={isModalOpen}
+          setShowModal={setIsModalOpen}
         />
       )}
     </div>

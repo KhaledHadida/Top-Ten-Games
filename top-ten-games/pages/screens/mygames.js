@@ -4,8 +4,7 @@ import { useEffect, useState } from 'react';
 import { getCookie } from '../api/cookiemanage';
 import { getGameList, deleteGame } from "../api/gamesapi";
 import { useRouter } from "next/router";
-import EditGameEntry from "../components/editgameentry";
-
+import EditGameEntryPanel from "../components/editgameentrypanel";
 
 export default function UsersGameList() {
   const [gameList, setGameList] = useState([]);
@@ -48,7 +47,7 @@ export default function UsersGameList() {
         <GameEntry key={game._id} name={game.name} reviewDescription={game.reviewDescription} gameCoverURL={game.gameCoverURL} rank={game.rank} gamePicture={game.gameCoverURL}
           onDelete={() => handleDeleteGame(game._id)} />
       ))}
-      <EditGameEntry />
+      <EditGameEntryPanel />
     </main>
   )
 }
