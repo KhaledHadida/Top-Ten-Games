@@ -1,20 +1,19 @@
-import { useState, useEffect } from "react";
-import { updateGame } from "../api/gamesapi";
+import { useState } from "react";
+import { addGame } from "../api/gamesapi";
 
 
-export default function EditGameEntryPanel({ showModal, setShowModal, id, name, reviewDescription, rank, gamePicture,editGame }) {
-
-    //Rank
-    const [newRank, setNewRank] = useState(rank);
-    
+export default function AddGameEntryPanel({ showModal, setShowModal, editGame }) {
+    //game name
+    const [gameName, setGameName] = useState();
     //Game Description
-    const [newReviewDescription, setReviewDescription] = useState(reviewDescription);
-    //Handle change
-    const handleNewRankChange = (e) => {
-        setNewRank(e.target.value);
+    const [reviewDescription, setReviewDescription] = useState();
+
+    //Handle game name change
+    const handleGameNameChange = (e) => {
+        setGameName(e.target.value);
     }
 
-    //Handle  change
+    //Handle game review desc  change
     const handleNewReviewDescription = (e) => {
         setReviewDescription(e.target.value);
     }
@@ -31,7 +30,7 @@ export default function EditGameEntryPanel({ showModal, setShowModal, id, name, 
                                 {/*header*/}
                                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                                     <h3 className="text-3xl font-semibold">
-                                        Edit Game Review
+                                        Add a Game Review
                                     </h3>
                                     <button
                                         className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -43,21 +42,21 @@ export default function EditGameEntryPanel({ showModal, setShowModal, id, name, 
                                     </button>
                                 </div>
                                 {/* Title change */}
-                                {/* <div className="flex items-center">
+                                <div className="flex items-center">
                                     <p className="p-2">Title </p>
-                                    <input type="text" placeholder="Enter title here" defaultValue={name}
+                                    <input type="text" onChange={handleGameNameChange} placeholder="Enter title here"
                                         className="block m-2 p-2.5 text-sm w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                                </div> */}
-                                {/* Rank change */}
-                                <div className="flex items-center justify-between">
-                                    <p className="p-2">Rank </p>
-                                    <input onChange={handleNewRankChange} defaultValue={rank} type="text" placeholder="Enter rank here"
-                                        className="block m-2 p-2.5 text-sm w-1/10 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                 </div>
+                                {/* Rank change */}
+                                {/* <div className="flex items-center justify-between">
+                                    <p className="p-2">Rank </p>
+                                    <input onChange={handleGameNameChange} type="text" placeholder="Enter rank here"
+                                        className="block m-2 p-2.5 text-sm w-1/10 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                </div> */}
                                 {/* Review Description */}
                                 <div className="flex justify-between">
                                     <label className="p-2">Review Description </label>
-                                    <textarea defaultValue={reviewDescription} onChange={handleNewReviewDescription} type="text" placeholder="Enter Review Description here"
+                                    <textarea onChange={handleNewReviewDescription} type="text" placeholder="Enter Review Description here"
                                         className="block m-2 p-2.5 text-sm w-1/10 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     />
                                 </div>
@@ -73,10 +72,10 @@ export default function EditGameEntryPanel({ showModal, setShowModal, id, name, 
                                     <button
                                         className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                         type="button"
-                                        //Close the pop up and updategame with api 
-                                        onClick={() => { setShowModal(false); updateGame(id, newRank, newReviewDescription).then(()=> editGame()); }}
+                                        //Close the pop up and updategame with api & add the newest game so we can refresh it on front end
+                                        onClick={() => { setShowModal(false); addGame(gameName, reviewDescription).then(()=> editGame()); }}
                                     >
-                                        Save Changes
+                                        Add Game
                                     </button>
                                 </div>
                             </div>

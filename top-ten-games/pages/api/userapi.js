@@ -1,7 +1,7 @@
-import { setCookie } from './cookiemanage';
+import { setCookie, getCookie } from './cookiemanage';
 import axios from 'axios';
 
-//
+//login
 export const loginUser = async (user, pass) => {
     //Get a reference to serverless fns 
     const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
@@ -22,3 +22,26 @@ export const loginUser = async (user, pass) => {
     }
 
 }
+
+//Fetch users by name 
+export const fetchUsers = async (username) => {
+    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+    const token = getCookie('userId');
+
+    const data = {
+        name: username,
+    }
+    try{
+        const response = await axios.post(`${backendUrl}/api/users/fetch`, data, {
+            headers: {
+                'Content-Type': 'application/json',
+                'x-auth-token': token
+            },
+        });
+        console.log(response.data.user);
+        return response.data.user;
+    }catch(error){
+        throw error;
+    }
+}
+

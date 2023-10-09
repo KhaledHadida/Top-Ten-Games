@@ -1,18 +1,17 @@
 import { onDelete } from "../screens/mygames"
 import { useState } from "react";
 import EditGameEntryPanel from "./editgameentrypanel";
+import AddGameEntryPanel from "./addgameentrypanel";
 
-export default function GameEntry({ id, name, reviewDescription, rank, gamePicture, onDelete }) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
+export default function GameEntry({ id, name, reviewDescription, rank, gamePicture, onDelete, editGame }) {
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const openModal = () => {
-    console.log("true");
-    setIsModalOpen(true);
+    setIsEditModalOpen(true);
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  // const closeModal = () => {
+  //   setIsEditModalOpen(false);
+  // };
 
 
   return (
@@ -23,7 +22,7 @@ export default function GameEntry({ id, name, reviewDescription, rank, gamePictu
         <div className="flex justify-between">
           {/*This flex is to set the picture and description beside each other horizontally*/}
           <div className="flex">
-            <img className="rounded-full mr-5" style={{ width: 250, height: 250 }} src={gamePicture} alt="image description"></img>
+            <img className="rounded-full mr-5" style={{ width: 250, height: 250, textAlign: "center" }} src={gamePicture} alt="No Image?"></img>
             <div className="flex-col">
               <h1 className="text-2xl font-bold">{name}</h1>
               <p>{reviewDescription}</p>
@@ -43,15 +42,16 @@ export default function GameEntry({ id, name, reviewDescription, rank, gamePictu
           </div>
         </div>
       </div>
-      {isModalOpen && (
+      {isEditModalOpen && (
         <EditGameEntryPanel
+          showModal={isEditModalOpen}
+          setShowModal={setIsEditModalOpen}
           id={id}
           name={name}
           reviewDescription={reviewDescription}
           rank={rank}
           gamePicture={gamePicture}
-          showModal={isModalOpen}
-          setShowModal={setIsModalOpen}
+          editGame={editGame}
         />
       )}
     </div>
