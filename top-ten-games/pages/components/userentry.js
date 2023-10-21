@@ -1,4 +1,15 @@
+import { getUserGameList } from "../api/gamesapi";
+import { useEffect, useState } from "react";
+
+
 export default function UserEntry({id, name}) {
+
+    const [gameList, setGameList] = useState([]);
+
+    const handleUserProfile = () =>{
+        getUserGameList(id);
+    }
+
     return (
         <div className="flex justify-center">
             {/* Image for user */}

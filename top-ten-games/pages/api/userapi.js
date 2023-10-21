@@ -16,7 +16,12 @@ export const loginUser = async (user, pass) => {
             },
         });
         //Store it in cookie, name it, and let it expire in 1 day.
-        setCookie('userId', response.data.token, 1);
+        const cookieSet = setCookie('userId', response.data.token, 1);
+        if(cookieSet){
+            return true;
+        }else{
+            return false;
+        }
     }catch(error){
         throw error;
     }
@@ -43,5 +48,26 @@ export const fetchUsers = async (username) => {
     }catch(error){
         throw error;
     }
+}
+
+export const checkUserAuth = async (token) => {
+    //Note the token from param is always from cookies.
+    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+    //If token is empty
+    if(token == ''){
+        return;
+    }
+    try{
+        const response = await axios.get(`${backendUrl}/api/auth`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'x-auth-token': token
+            },
+        });
+        return true;
+    }catch(error){
+        return false;
+    }
+
 }
 

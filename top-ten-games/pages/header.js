@@ -1,9 +1,45 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { loginUser } from './api/userapi';
+import { useAuth } from './authcontext';
+import { deleteCookie } from './api/cookiemanage';
+import { useRouter } from 'next/router';
+
 
 export default function Header() {
     const [data, setData] = useState({});
+    //So we can track if user is logged in or not
+    const { fetchLoginStatus, isLoggedIn, login, logout } = useAuth();
+    const router = useRouter();
+
+    useEffect(() => {
+        const fetchStatus = async () => {
+            // Fetch the login status
+            const status = fetchLoginStatus();
+            console.log("Set " + status);
+        }
+        //Check if user is logged in or not. 
+
+        fetchStatus();
+    }, []); // 
+
+
+    //logout
+    const handleLogout = async () => {
+        try {
+            // Perform login logic here
+            await logout();
+            console.log("Logout");
+            //Delete cookie
+            deleteCookie("userId");
+            // If login is successful, navigate to the "mygames" page
+            router.push('./signin'); // Replace '/mygames' with the actual path of your "mygames" page
+        } catch (error) {
+            // Handle login failure
+            console.error('Logout failure:', error);
+        }
+    };
+
     return (
         <header>
             <ul className="flex items-center justify-between bg-red-400">
@@ -14,26 +50,31 @@ export default function Header() {
                 <li className="mr-6">
                     <a className="text-blue-500 hover:text-blue-800" href="mygames">My Games</a>
                 </li>
-                {/* <li className="mr-6">
-                    <a class="text-blue-500 hover:text-blue-800" href="#">Link</a>
-                </li>
-                <li class="mr-6">
-                    <a class="text-gray-400 cursor-not-allowed" href="#">Disabled</a>
-                </li> */}
-                {/* <button className="mr-6 bg-red-400 px-4 py-2" href="signin">Sign in</button> */}
-                <li className="mr-6">
-                    <a className="text-blue-500 hover:text-blue-800" href="signin">Sign In</a>
-                </li>
+                {isLoggedIn ? (<li className="mr-6">
+                    <button className="text-blue-500 hover:text-blue-800" onClick={ handleLogout}>Sign Out</button>
+                </li>) :
+                    (<li className="mr-6">
+                        <a className="text-blue-500 hover:text-blue-800" href="signin">Sign In</a>
+                    </li>)}
                 {/* onClick={handleSignIn} */}
             </ul>
         </header>
     )
 }
 
+export async function getServerSideProps(context) {
+    return {
+        props: {
+        }
+    }
+}
+
+
+
 //Move this to a separate API file under the api folder (because we should keep api calls separate from front end)
 function handleSignIn() {
     const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL
-    const email= 'khaled@example.com';
+    const email = 'khaled@example.com';
     const password = '123456';
 
     //Login the user.
@@ -64,9 +105,4 @@ function handleSignIn() {
 //     }
 // }
 
-export async function getServerSideProps() {
 
-    return {
-        props: {}
-    }
-}

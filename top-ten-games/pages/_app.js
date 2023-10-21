@@ -1,5 +1,21 @@
 import '@/styles/globals.css'
+import { AuthProvider } from './authcontext'
+import { LoadingProvider, useLoading } from './loadingcontext';
+import { useState, useEffect } from 'react';
+import LoadingAnimation from './components/loadinganimation';
+import { useRouter } from 'next/router'; // Import the useRouter
 
 export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  //This is so we have global access to loading screen.
+  //const [loading, setLoading] = useState(false);
+
+  return (
+    <AuthProvider>
+      <LoadingProvider>
+        {/* <LoadingAnimation />  This is global loading anim I removed temporarily?*/} 
+        <Component {...pageProps} />
+      </LoadingProvider>
+    </AuthProvider >
+
+  )
 }

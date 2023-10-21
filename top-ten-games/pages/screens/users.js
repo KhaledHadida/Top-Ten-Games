@@ -2,14 +2,31 @@ import Header from "../header";
 import { useEffect, useState } from "react";
 import UserEntry from "../components/userentry";
 import { fetchUsers } from "../api/userapi";
+///////////////Check user auth
+import { checkUserAuth } from "../api/userapi";
+import { getCookie } from '../api/cookiemanage';
+import { useRouter } from "next/router";
+///////////////
+
 
 export default function Users() {
     const [searchUser, setSearchUser] = useState("");
     const [usersFound, setUsersFound] = useState([]);
 
-
+    const router = useRouter();
+    //Disable user from trying to access page without credentials
     useEffect(() => {
         console.log("refresh" + usersFound.length);
+        const token = getCookie('userId');
+        //First check if user 
+        const checkAuthentication = async () => {
+            const userAuth = await checkUserAuth(token);
+            //If we are denied access.. send them to login page
+            if (!userAuth) {
+                router.push('./signin');
+            }
+        }
+        checkAuthentication();
     }, [usersFound]); //Only run once when page loads
 
     const handleSubmit = async (event) => {
