@@ -103,7 +103,7 @@ export default function UsersGameList() {
       {!loading ? (<>
         <h1 className="text-center font-bold text-3xl">USERNAME'S top ten games</h1>
         {gameList.map((game) => (
-          <GameEntry key={game._id} id={game._id} name={game.name} reviewDescription={game.reviewDescription} gameCoverURL={game.gameCoverURL} rank={game.rank} gamePicture={game.gameCoverURL}
+          <GameEntry key={game._id} id={game._id} name={game.name} reviewDescription={game.reviewDescription} gameCoverURL={game.gameCoverURL} rank={game.rank} gamePicture={game.gameCoverURL} currentProfile={true}
             onDelete={() => handleDeleteGame(game._id)} editGame={refreshGameList} />
         ))}
         {/* Add a game */}

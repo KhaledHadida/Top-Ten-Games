@@ -3,7 +3,9 @@ import { useState } from "react";
 import EditGameEntryPanel from "./editgameentrypanel";
 import AddGameEntryPanel from "./addgameentrypanel";
 
-export default function GameEntry({ id, name, reviewDescription, rank, gamePicture, onDelete, editGame }) {
+export default function GameEntry({ id, name, reviewDescription, rank, gamePicture, onDelete, editGame, currentProfile }) {
+
+  //Current profile is a basic bool that determines whether this is my profile or someone else's (through search)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const openModal = () => {
     setIsEditModalOpen(true);
@@ -28,7 +30,7 @@ export default function GameEntry({ id, name, reviewDescription, rank, gamePictu
               <p>{reviewDescription}</p>
             </div>
           </div>
-          <div className="relative h-32 w-32">
+          {currentProfile ? (<div className="relative h-32 w-32">
             {/* Edit button */}
             <button onClick={openModal} className="absolute top-0 right-10 h-12 w-24  bg-green-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
               Edit
@@ -39,7 +41,7 @@ export default function GameEntry({ id, name, reviewDescription, rank, gamePictu
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
-          </div>
+          </div>) : (null)}
         </div>
       </div>
       {isEditModalOpen && (

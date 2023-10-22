@@ -66,7 +66,7 @@ export default function Users() {
                 </div>
                 {Array.isArray(usersFound) ? (
                     usersFound.map((user) => (
-                        <UserEntry key={user._id} name={user.name} />
+                        <UserEntry key={user._id} name={user.name} id={user._id}/>
                     ))
                 ) : <p>No Users found.</p>}
             </main>

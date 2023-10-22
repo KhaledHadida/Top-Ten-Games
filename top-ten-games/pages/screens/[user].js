@@ -1,4 +1,7 @@
 import { useRouter } from "next/router";
+import { useState } from "react";
+import { useLoading } from "../loadingcontext";
+import Header from "../header";
 
 export default function User() {
     const [gameList, setGameList] = useState([]);
@@ -31,31 +34,23 @@ export default function User() {
     };
 
 
+
+
     const token = getCookie('userId');
     //Fetch API game list
     useEffect(() => {
         setLoading(true);
-        //First check if user 
-        const checkAuthentication = async () => {
-            const userAuth = await checkUserAuth(token);
-            //If we are denied access.. send them to login page
-            if (!userAuth) {
-                router.push('./signin');
-            } else {
-                //If we are authenticated then fetch!
-                getGameList(token).then((gameData) => {
-                    setGameList(gameData);
-                    //OLD Method, prolly remove
-                    //handleLoading();
-                    console.log("Data " + gameData);
-                }).catch((error) => {
-                    //console.error('Error:', error);
-                }).finally(() => {
-                });
-            }
-            setLoading(false);
-        }
-        checkAuthentication();
+        //If we are authenticated then fetch!
+        getGameList(token).then((gameData) => {
+            setGameList(gameData);
+            //OLD Method, prolly remove
+            //handleLoading();
+            console.log("Data " + gameData);
+        }).catch((error) => {
+            //console.error('Error:', error);
+        }).finally(() => {
+        });
+
     }, [refresh]); //Only run once when page loads
 
     return (
@@ -66,7 +61,7 @@ export default function User() {
             {!loading ? (<>
                 <h1 className="text-center font-bold text-3xl">USERNAME'S top ten games</h1>
                 {gameList.map((game) => (
-                    <GameEntry key={game._id} id={game._id} name={game.name} reviewDescription={game.reviewDescription} gameCoverURL={game.gameCoverURL} rank={game.rank} gamePicture={game.gameCoverURL}
+                    <GameEntry key={game._id} id={game._id} name={game.name} reviewDescription={game.reviewDescription} gameCoverURL={game.gameCoverURL} rank={game.rank} gamePicture={game.gameCoverURL} currentProfile={false}
                         onDelete={() => handleDeleteGame(game._id)} editGame={refreshGameList} />
                 ))}
                 {/* If user is not logged in then display a suggestion to login page */}
