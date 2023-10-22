@@ -93,6 +93,7 @@ export const addGame = async (name, gameReviewDesc) => {
 
 //Get specific user's game list
 export const getUserGameList = async (userId) => {
+    console.log("RESPONSE " + response);
     try {
         const response = await axios.post(`${backendUrl}/api/gameList/fetchGameList/${userId}`,
             {
@@ -100,7 +101,6 @@ export const getUserGameList = async (userId) => {
                     'Content-Type': 'application/json',
                 },
             });
-            console.log(response);
             return response;
     } catch (error) {
         throw error;

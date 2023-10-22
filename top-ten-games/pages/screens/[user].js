@@ -1,7 +1,9 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLoading } from "../loadingcontext";
+import LoadingAnimation from "../components/loadinganimation";
 import Header from "../header";
+import { getUserGameList } from "../api/gamesapi";
 
 export default function User() {
     const [gameList, setGameList] = useState([]);
@@ -9,22 +11,11 @@ export default function User() {
 
     const router = useRouter();
     //Get what is in query
-    const userName = router.query.user;
-
+    const userId = router.query.user;
+    console.log("OK " + userId);
     //This is for loading purposes which we can toggle
     const { setLoading, loading } = useLoading();
 
-    //For add panel
-    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-    const openAddModal = () => {
-        setIsAddModalOpen(true);
-    };
-
-    //For add
-    // Function to add a new game to the gameList state
-    const addNewGame = (newGame) => {
-        setGameList([...gameList, newGame]);
-    };
 
     //For refreshing the page upon changes (like adding/modifying)
     const [refresh, setRefresh] = useState(false);
@@ -33,15 +24,12 @@ export default function User() {
         setRefresh(!refresh);
     };
 
-
-
-
-    const token = getCookie('userId');
     //Fetch API game list
     useEffect(() => {
-        setLoading(true);
+        console.log("hey");
+
         //If we are authenticated then fetch!
-        getGameList(token).then((gameData) => {
+        getUserGameList(userId).then((gameData) => {
             setGameList(gameData);
             //OLD Method, prolly remove
             //handleLoading();
@@ -51,7 +39,7 @@ export default function User() {
         }).finally(() => {
         });
 
-    }, [refresh]); //Only run once when page loads
+    }, []); //Only run once when page loads
 
     return (
         <main className={`min-h-screen flex-col items-center justify-between space-y-4`}>

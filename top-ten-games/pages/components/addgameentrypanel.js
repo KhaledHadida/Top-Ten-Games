@@ -2,7 +2,7 @@ import { useState } from "react";
 import { addGame } from "../api/gamesapi";
 
 
-export default function AddGameEntryPanel({ showModal, setShowModal, editGame }) {
+export default function AddGameEntryPanel({ showModal, setShowModal, addNewGame }) {
     //game name
     const [gameName, setGameName] = useState();
     //Game Description
@@ -73,7 +73,7 @@ export default function AddGameEntryPanel({ showModal, setShowModal, editGame })
                                         className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                         type="button"
                                         //Close the pop up and updategame with api & add the newest game so we can refresh it on front end
-                                        onClick={() => { setShowModal(false); addGame(gameName, reviewDescription).then(()=> editGame()); }}
+                                        onClick={() => { setShowModal(false); addGame(gameName, reviewDescription).then(()=> addNewGame()); }}
                                     >
                                         Add Game
                                     </button>
