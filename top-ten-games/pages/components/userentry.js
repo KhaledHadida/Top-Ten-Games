@@ -3,15 +3,19 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 
-export default function UserEntry({name, id}) {
+export default function UserEntry({ name, id }) {
     const router = useRouter();
     console.log(id);
     console.log("name is " + name);
     //We want to access [user].js 
-    const handleUserProfile = () =>{
+    const handleUserProfile = () => {
         //This is to get the list
         //getUserGameList(id);
-        router.push('./'+id);
+        //WE gotta store userID into session 
+        // sessionStorage.setItem('userID', id);
+
+        //Just push it to URL
+        router.push('./users/' + id);
 
     }
 

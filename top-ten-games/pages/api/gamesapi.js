@@ -93,16 +93,17 @@ export const addGame = async (name, gameReviewDesc) => {
 
 //Get specific user's game list
 export const getUserGameList = async (userId) => {
-    console.log("RESPONSE " + response);
     try {
-        const response = await axios.post(`${backendUrl}/api/gameList/fetchGameList/${userId}`,
+        console.log("I AM GETTING  " + userId);
+        const response = await axios.get(`${backendUrl}/api/gameList/fetchGameList/${userId}`,
             {
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
-            return response;
+            return response.data;
     } catch (error) {
+        console.log("RESPONSE " + userId);
         throw error;
     }
 }

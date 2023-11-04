@@ -1,4 +1,4 @@
-import { onDelete } from "../screens/mygames"
+import { onDelete } from "../mygames"
 import { useState } from "react";
 import EditGameEntryPanel from "./editgameentrypanel";
 import AddGameEntryPanel from "./addgameentrypanel";

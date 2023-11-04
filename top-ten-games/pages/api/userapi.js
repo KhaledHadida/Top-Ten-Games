@@ -25,7 +25,26 @@ export const loginUser = async (user, pass) => {
     }catch(error){
         throw error;
     }
+}
 
+//Register user
+export const registerUser = async (name, user, pass) => {
+    //Get a reference to serverless fns 
+    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+    const data = {
+        name: name,
+        email: user,
+        password: pass
+    }
+    try{
+        const response = await axios.post(`${backendUrl}/api/users/register`, data, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+    }catch(error){
+        throw error;
+    }
 }
 
 //Fetch users by name 
@@ -43,7 +62,6 @@ export const fetchUsers = async (username) => {
                 'x-auth-token': token
             },
         });
-        console.log(response.data.user);
         return response.data.user;
     }catch(error){
         throw error;

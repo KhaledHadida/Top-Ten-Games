@@ -6,6 +6,7 @@ export const AuthProvider = ({ children }) => {
   var [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const fetchLoginStatus = async () => {
+    //Problem here is when user exits out of tab, this resets to false everytime
     const status = sessionStorage.getItem('isLoggedIn') === 'true';
     setIsLoggedIn(status);
     console.log("Called " + status);
