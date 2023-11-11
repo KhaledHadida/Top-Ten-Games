@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { getCookie } from './cookiemanage';
 
+
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 //API call to fetch game list from backend using auth token as param
@@ -19,7 +20,7 @@ export const getGameList = async (token) => {
         return response.data.topGames;
         //Otherwise throw error
     } catch (error) {
-        throw error;
+        //throw error;
     }
 
 };
@@ -44,8 +45,9 @@ export const deleteGame = async (token, gameId) => {
 
 //update a game from user's list
 export const updateGame = async (gameId, rank, gameReviewDesc) => {
+
     const token = getCookie('userId');
-    console.log(`token gameId is ${gameId} ${gameReviewDesc} ${rank}`)
+    //console.log(`token gameId is ${gameId} ${gameReviewDesc} ${rank}`)
     const data = {
         rank: rank,
         reviewDescription: gameReviewDesc
@@ -60,7 +62,10 @@ export const updateGame = async (gameId, rank, gameReviewDesc) => {
                 },
             });
     } catch (error) {
+        //resend them to sign in page
+        router.push('./signin');
         throw error;
+
     }
 }
 

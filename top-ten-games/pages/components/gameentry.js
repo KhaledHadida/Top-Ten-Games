@@ -15,7 +15,6 @@ export default function GameEntry({ id, name, reviewDescription, rank, gamePictu
   //   setIsEditModalOpen(false);
   // };
 
-
   return (
     <div className="flex items-center">
       <p className="mx-20 text-2xl">#{rank || "NA"}</p>
@@ -25,9 +24,9 @@ export default function GameEntry({ id, name, reviewDescription, rank, gamePictu
           {/*This flex is to set the picture and description beside each other horizontally*/}
           <div className="flex">
             <img className="rounded-full mr-5" style={{ width: 250, height: 250, textAlign: "center" }} src={gamePicture} alt="No Image?"></img>
-            <div className="flex-col">
+            <div className="grow-0">
               <h1 className="text-2xl font-bold">{name}</h1>
-              <p>{reviewDescription}</p>
+              <p className="">{reviewDescription}</p>
             </div>
           </div>
           {currentProfile ? (<div className="relative h-32 w-32">

@@ -16,7 +16,7 @@ export function getCookie(name) {
         console.log(`null?`);
         return null;
     } else {
-        console.log(`Cookie Name ${name} and value is ${myCookieValue}`);
+        // console.log(`Cookie Name ${name} and value is ${myCookieValue}`);
         return myCookieValue;
     }
 }
