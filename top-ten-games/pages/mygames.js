@@ -100,11 +100,24 @@ export default function UsersGameList() {
       });
   };
 
-  //HandleChange
   useEffect(() => {
-    console.log("Game list updated:", gameList);
-    // Perform any additional actions here
+    const updateGames = async () => {
+      try {
+        for (let index = 0; index < gameList.length; index++) {
+          const newRank = index + 1;
+          console.log("Game is " + gameList[index].name + " and rank is " + newRank);
+          // This is probably not the best method, but it's okay for now
+          await updateGame(gameList[index]._id, newRank, gameList[index].reviewDescription);
+        }
+      } catch (error) {
+        console.error('Error updating games:', error);
+      }
+    };
+
+    updateGames();
   }, [gameList]);
+
+
 
   // Define the onDragEnd function
   const onDragEnd = async (result) => {
@@ -114,28 +127,29 @@ export default function UsersGameList() {
     const newGameList = [...gameList];
     const [reorderedGame] = newGameList.splice(result.source.index, 1);
     newGameList.splice(result.destination.index, 0, reorderedGame);
-    //Set it locally (Frontend only)
-    setGameList(newGameList);
 
     //Update backend
     for (let index = 0; index < newGameList.length; index++) {
       const newRank = index + 1;
       console.log("Game is " + gameList[index].name + " and rank is  " + newRank);
-
+      newGameList[index].rank = newRank;
       //This is probably not best method of doing it but whenever user is afk (I may need a better approach)
-      try {
-        await updateGame(newGameList[index]._id, newRank, newGameList[index].reviewDescription);
-      } catch (error) {
-        //Show them the redirecting first
-        setRedirectBool(true);
-      }
+      // try {
+      //   await updateGame(newGameList[index]._id, newRank, newGameList[index].reviewDescription);
+      // } catch (error) {
+      //   //Show them the redirecting first
+      //   setRedirectBool(true);
+      // }
     }
+    //Set it locally (Frontend only)
+    setGameList(newGameList);
 
-    // Set the current copy of game list
-    console.log('Before state update:', gameList);
-    console.log('After state update:', newGameList);
 
-    //Fetch stuff from backend to frontend??? Definitely not best practice.
+    // // Set the current copy of game list
+    // console.log('Before state update:', gameList);
+    // console.log('After state update:', newGameList);
+
+    // //Fetch stuff from backend to frontend??? Definitely not best practice.
     // await getGameList(token).then((data) => {
     //   // Set the current copy of game list
     //   setGameList(data);
@@ -147,7 +161,7 @@ export default function UsersGameList() {
     <main className={`min-h-screen flex-col items-center justify-between space-y-4`}>
       {/* Imported header */}
       <Header />
-      <Profile/>
+      <Profile />
       {redirectBool ? (<RedirectPage text={"Seems like your session has expired.. Redirecting you to sign page!"} />
       ) : (!loading ? (<>
         <h1 className="text-center font-bold text-3xl">My top ten games</h1>
