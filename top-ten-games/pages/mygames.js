@@ -40,6 +40,12 @@ export default function UsersGameList() {
     setIsAddModalOpen(true);
   };
 
+  //For username, profile pic and desc
+  const [name, setName] = useState("");
+  const [desc, setDesc] = useState("");
+  const [profilePic, setProfilePic] = useState("");
+
+
   //For add
   // Function to add a new game to the gameList state
   // const addNewGame = (newGame) => {
@@ -61,8 +67,9 @@ export default function UsersGameList() {
     const checkAuthentication = async () => {
       setLoading(true);
       const userAuth = await checkUserAuth(token);
+      console.log(userAuth);
       //If we are denied access.. send them to login page
-      if (!userAuth) {
+      if (userAuth == null) {
         logout();
         setLoading(false);
         router.push('./signin');
@@ -77,8 +84,15 @@ export default function UsersGameList() {
           //Error send them to signin page
           router.push('./signin');
         })
+
+        //Get current user name and desc and profile
+        //First search the user up
+        setName(userAuth.name);
+        setDesc(userAuth.profileBio);
+        setProfilePic(userAuth.profilePicId);
       }
       setLoading(false);
+
     }
     checkAuthentication();
   }, [refresh]); //Only run once when page loads
@@ -101,6 +115,7 @@ export default function UsersGameList() {
   };
 
   useEffect(() => {
+    //Here we update the backend
     const updateGames = async () => {
       try {
         for (let index = 0; index < gameList.length; index++) {
@@ -128,43 +143,26 @@ export default function UsersGameList() {
     const [reorderedGame] = newGameList.splice(result.source.index, 1);
     newGameList.splice(result.destination.index, 0, reorderedGame);
 
-    //Update backend
+    //Update frontend component (what user sees immediately)
     for (let index = 0; index < newGameList.length; index++) {
       const newRank = index + 1;
       console.log("Game is " + gameList[index].name + " and rank is  " + newRank);
       newGameList[index].rank = newRank;
-      //This is probably not best method of doing it but whenever user is afk (I may need a better approach)
-      // try {
-      //   await updateGame(newGameList[index]._id, newRank, newGameList[index].reviewDescription);
-      // } catch (error) {
-      //   //Show them the redirecting first
-      //   setRedirectBool(true);
-      // }
     }
     //Set it locally (Frontend only)
     setGameList(newGameList);
 
-
-    // // Set the current copy of game list
-    // console.log('Before state update:', gameList);
-    // console.log('After state update:', newGameList);
-
-    // //Fetch stuff from backend to frontend??? Definitely not best practice.
-    // await getGameList(token).then((data) => {
-    //   // Set the current copy of game list
-    //   setGameList(data);
-    // })
   };
 
 
   return (
-    <main className={`min-h-screen flex-col items-center justify-between space-y-4`}>
+    <main className={`min-h-screen flex-col items-center justify-between`}>
       {/* Imported header */}
       <Header />
-      <Profile />
       {redirectBool ? (<RedirectPage text={"Seems like your session has expired.. Redirecting you to sign page!"} />
       ) : (!loading ? (<>
-        <h1 className="text-center font-bold text-3xl">My top ten games</h1>
+        <Profile name={name} description={desc} profilePic={profilePic} refresh={refreshGameList} myProfile={true} />
+        <h1 className="text-center font-bold text-3xl my-5">My top ten games</h1>
         <DragDropContext onDragEnd={onDragEnd}>
           {/* ... Your existing code ... */}
           <Droppable droppableId="gameList">
@@ -173,7 +171,7 @@ export default function UsersGameList() {
                 {gameList.map((game, index) => (
                   <Draggable key={game._id} draggableId={game._id} index={index}>
                     {(provided) => (
-                      <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="mt-3">
+                      <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                         <GameEntry
                           key={game._id}
                           id={game._id}
@@ -217,7 +215,8 @@ export default function UsersGameList() {
         // gamePicture={gamePicture}
         />
       )}
-
+      {/* Delete button panel */}
+      
     </main>
   )
 }

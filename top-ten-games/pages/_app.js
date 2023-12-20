@@ -13,7 +13,9 @@ export default function App({ Component, pageProps }) {
       <AuthProvider>
         <LoadingProvider>
           {/* <LoadingAnimation />  This is global loading anim I removed temporarily?*/}
-          <Component {...pageProps} />
+          <div className="bg-lighter-blue">
+          <Component {...pageProps}/>
+          </div>
         </LoadingProvider>
       </AuthProvider >
 

@@ -7,7 +7,8 @@ import { useAuth } from "./contexts/authcontext";
 import LoadingAnimation from "./components/loadinganimation";
 import { checkUserAuth } from "./api/userapi";
 import { useLoading } from "./contexts/loadingcontext";
-
+//Yup - validation library
+import * as yup from 'yup';
 
 
 export default function SignIn() {
@@ -23,6 +24,12 @@ export default function SignIn() {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
+    //Yup schematic for email + pass
+    const schema = yup.object().shape({
+        username: yup.string().required('Username is required'),
+        password: yup.string().required('Password is required')
+    });
+
     //Handle changes
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
@@ -36,7 +43,7 @@ export default function SignIn() {
     const checkAuthentication = async () => {
         const userAuth = await checkUserAuth(token);
         //If we are denied access.. send them to login page
-        if (!userAuth) {
+        if (userAuth == null) {
             router.push('./signin');
         }
     }
@@ -66,11 +73,10 @@ export default function SignIn() {
     return (
         <>
             <Header />
-            {(<div className="bg-indigo-500 min-h-screen flex flex-col justify-center items-center">
-                <div className="bg-white p-2.5 rounded" style={{ width: "50%" }}>
+            {(<div className="bg-lighter-blue min-h-screen flex flex-col justify-center items-center">
+                <div className="bg-white p-2.5 rounded p-10 shadow-2xl outline outline-2 outline-blue-500" style={{ width: "50%" }}>
                     <form onSubmit={handleLogin} >
-
-                        <h1 className="text-3xl font-semibold text-center">Sign in below</h1>
+                        <h1 className="text-3xl font-semibold text-center">Sign in</h1>
                         <div className="mt-4">
                             <label htmlFor="email" className="block font-bold">Email</label>
                             <input
@@ -92,7 +98,7 @@ export default function SignIn() {
                             />
                         </div>
                         <div className="mt-6">
-                            {loading ? (<LoadingAnimation /> 
+                            {loading ? (<LoadingAnimation />
                             ) : (<button
                                 className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none w-full"
                                 type="submit"

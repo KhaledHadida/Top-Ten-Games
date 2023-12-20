@@ -14,33 +14,35 @@ export default function GameEntry({ id, name, reviewDescription, rank, gamePictu
   // const closeModal = () => {
   //   setIsEditModalOpen(false);
   // };
-
   return (
     <div className="flex items-center">
-      <p className="mx-20 text-2xl">#{rank || "NA"}</p>
+      <p className="mx-20 text-4xl font-bold">#{rank || "NA"}</p>
       <span hidden>{id}</span>
-      <div className="font-mono flex-grow rounded-lg bg-blue-500 mr-24 p-4 shadow-2xl ">
-        <div className="flex justify-between">
+      <div className="font-mono flex-grow rounded-lg bg-normal-blue mr-24 p-4 shadow-2xl mb-5">
+        <div className="flex justify-between relative">
           {/*This flex is to set the picture and description beside each other horizontally*/}
-          <div className="flex">
-            <img className="rounded-full mr-5" style={{ width: 250, height: 250, textAlign: "center" }} src={gamePicture} alt="No Image?"></img>
-            <div className="grow-0">
-              <h1 className="text-2xl font-bold">{name}</h1>
-              <p className="">{reviewDescription}</p>
-            </div>
+          <div className="w-2/10 flex items-center">
+            <img className="mr-5 rounded-lg" style={{ textAlign: "center"}} src={gamePicture} alt="No Image?"></img>
+            {/* <div className="grow-0" style={{ overflow: "hidden" }}>
+            </div> */}
           </div>
-          {currentProfile ? (<div className="relative h-32 w-32">
-            {/* Edit button */}
-            <button onClick={openModal} className="absolute top-0 right-10 h-12 w-24  bg-green-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
-              Edit
-            </button>
-            {/* X button */}
-            <button className="absolute top-2 right-0" onClick={onDelete}>
-              <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>) : (null)}
+          <div className="w-8/10">
+            <h1 className="text-2xl font-bold">{name}</h1>
+            <p className="">{reviewDescription}</p>
+          </div>
+          {currentProfile ? (
+            <div className="w-1/10 flex justify-end">
+              {/* Edit button */}
+              <button onClick={openModal} className="h-12 w-24 bg-green-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+                Edit
+              </button>
+              {/* X button */}
+              <button className="bg-red-500 h-12 w-14 hover:bg-blue-700 text-white font-bold py-2 px-4 ml-2 rounded-full" onClick={onDelete}>
+                <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>) : (null)}
         </div>
       </div>
       {isEditModalOpen && (

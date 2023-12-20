@@ -10,6 +10,8 @@ import { useAuth } from "./contexts/authcontext";
 ///////////////
 import { useLoading } from "./contexts/loadingcontext";
 import LoadingAnimation from "./components/loadinganimation";
+//Background - temp
+import AnimationBackground from "./components/animationbackground";
 
 
 
@@ -31,7 +33,7 @@ export default function Users() {
         const checkAuthentication = async () => {
             const userAuth = await checkUserAuth(token);
             //If we are denied access.. send them to login page
-            if (!userAuth) {
+            if (userAuth == null) {
                 logout();
                 router.push('./signin');
             } else {
@@ -94,9 +96,12 @@ export default function Users() {
                 {loading ? (<LoadingAnimation />) : (
                     userFound ? (
                         usersFound.map((user) => (
-                            <UserEntry key={user._id} name={user.name} id={user._id} />
+                            <UserEntry key={user._id} name={user.name} id={user._id} profilePic={user.profilePicId} desc={user.profileBio}  />
                         ))
                     ) : <p className="text-2xl text-center font-extralight font-thin">No Users found..</p>)}
+
+                    {/* Test out background here */}
+                    <AnimationBackground />
             </main>
         </>
     );

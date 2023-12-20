@@ -76,7 +76,6 @@ export const addGame = async (name, gameReviewDesc) => {
         return;
     }
     const token = getCookie('userId');
-    console.log(`game is ${gameReviewDesc} ${name}`)
     const data = {
         gameName: name,
         reviewDescription: gameReviewDesc
@@ -89,9 +88,9 @@ export const addGame = async (name, gameReviewDesc) => {
                     'x-auth-token': token,
                 },
             });
-            console.log(response);
             return response;
     } catch (error) {
+        //Im throwing it here so I can trigger the try-catch in AddGameEntryPanel.js
         throw error;
     }
 }
