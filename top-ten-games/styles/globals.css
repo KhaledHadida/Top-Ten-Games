@@ -31,9 +31,9 @@ body {
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 50px;
+  width: 150px;
   height: 50px;
-  background-color: blue;
+  background-color: #87C4FF;
   animation: moveBox 10s linear infinite;
 }
 

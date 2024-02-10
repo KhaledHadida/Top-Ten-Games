@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { addGame } from "../api/gamesapi";
 
+//Purpose: A panel that appears when a user wants to add a new game to their list
+//Params:
+//showModal is a bool that controls whether to make the add game panel visible or not
+//setShowModal is a bool setter(?) - sets the bool's value
+//addNewGame is is the delegate function that is passed as a param, in this case it acts as a way to refresh the component (Probably not a great method)
 export default function AddGameEntryPanel({ showModal, setShowModal, addNewGame }) {
     //game name
     const [gameName, setGameName] = useState();
@@ -8,7 +13,6 @@ export default function AddGameEntryPanel({ showModal, setShowModal, addNewGame 
     const [reviewDescription, setReviewDescription] = useState();
     //Error for game existing
     const [error, setError] = useState("");
-
 
 
     //Handle game name change

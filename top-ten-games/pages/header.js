@@ -17,7 +17,7 @@ export default function Header() {
         const fetchStatus = async () => {
             // Fetch the login status
             const status = await fetchLoginStatus();
-            console.log("Set " + status);
+            console.log("Current login status is " + status);
         }
         //Check if user is logged in or not. 
         fetchStatus();
@@ -41,10 +41,14 @@ export default function Header() {
     };
 
     return (
+
         <header>
-            <ul className="flex items-center justify-between bg-normal-blue p-2">
-                <h1 className="font-extrabold pl-10 py-2 underline" style={{ fontSize: 25 }}>Top Ten Games</h1>
+            <ul className="flex items-center justify-between bg-normal-blue p-2 relative z-10 shadow-2xl text-xl">
+
                 {isLoggedIn ? (<>
+                    <h1 className="font-extrabold pl-10 py-2 underline" style={{ fontSize: 25 }}>
+                        Top Ten Games
+                    </h1>
                     <li className="mr-6">
                         <a className="text-white hover:text-blue-800" href="/users">Users</a>
                     </li>
@@ -54,9 +58,15 @@ export default function Header() {
                 {isLoggedIn ? (<li className="mr-6">
                     <button className="text-white hover:text-blue-800" onClick={handleLogout}>Sign Out</button>
                 </li>) :
-                    (<li className="mr-6">
-                        <a className="text-white hover:text-blue-800" href="/signin">Sign In</a>
-                    </li>)}
+                    (<>
+                        <h1 className="font-extrabold pl-10 py-2 underline" style={{ fontSize: 25 }}>
+                            <a href="/home">Top Ten Games</a>
+                        </h1>
+                        <li className="mr-6">
+                            <a className="text-white hover:text-blue-800" href="/signin">Sign In</a>
+                        </li>
+                    </>
+                    )}
                 {/* onClick={handleSignIn} */}
             </ul>
         </header>

@@ -21,7 +21,7 @@ export default function Profile({ name, description, profilePic, refresh, myProf
     };
 
     return (<>
-        <div className=" flex items-stretch shadow-xl relative bg-light-blue">
+        <div className="flex items-stretch shadow-xl relative bg-light-blue">
             <img className="my-5 ml-40" style={{ width: 250, height: 250, textAlign: "center" }} src={profilePicture} alt="No Image?"></img>
             <div className="m-10">
                 <h1 className="text-2xl font-semibold ">{name}</h1>

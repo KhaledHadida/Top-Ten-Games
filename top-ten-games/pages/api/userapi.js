@@ -91,6 +91,24 @@ export const fetchUsers = async (username) => {
     }
 }
 
+//Delete user by token 
+export const deleteUser = async () => {
+    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+    const token = getCookie('userId');
+
+    try{
+        const response = await axios.delete(`${backendUrl}/api/users/delete`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'x-auth-token': token
+            },
+        });
+        return response.data;
+    }catch(error){
+        throw error;
+    }
+}
+
 //This returns either the response or null
 export const checkUserAuth = async (token) => {
     //Note the token from param is always from cookies.
@@ -112,5 +130,6 @@ export const checkUserAuth = async (token) => {
     }
 
 }
+
 
 

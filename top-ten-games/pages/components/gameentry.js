@@ -1,7 +1,5 @@
-import { onDelete } from "../mygames"
 import { useState } from "react";
 import EditGameEntryPanel from "./editgameentrypanel";
-import AddGameEntryPanel from "./addgameentrypanel";
 
 export default function GameEntry({ id, name, reviewDescription, rank, gamePicture, onDelete, editGame, currentProfile }) {
 
@@ -11,9 +9,6 @@ export default function GameEntry({ id, name, reviewDescription, rank, gamePictu
     setIsEditModalOpen(true);
   };
 
-  // const closeModal = () => {
-  //   setIsEditModalOpen(false);
-  // };
   return (
     <div className="flex items-center">
       <p className="mx-20 text-4xl font-bold">#{rank || "NA"}</p>
@@ -57,6 +52,7 @@ export default function GameEntry({ id, name, reviewDescription, rank, gamePictu
           editGame={editGame}
         />
       )}
+      {/* The "are you sure you want to delete" button */}
     </div>
   )
 

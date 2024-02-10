@@ -38,7 +38,7 @@ export default function Register() {
             setRegisterComplete(true);
             //Clean the password out of state!
             setPassword('');
-            // // Redirect to sign-in after a delay
+            // Redirect to sign-in after a delay
             setTimeout(() => {
                 setLoading(false);
                 router.push('/signin');
@@ -47,8 +47,8 @@ export default function Register() {
         } catch (error) {
             // Handle login failure
             setIsRegisterError(true);
-            console.error('Register error:', error.response);
-            setRegisterError(error.response.data.error);
+            //Check if it's an array - if not then make it into one
+            setRegisterError(error.response.data.errors);
             //Loading off
             setLoading(false);
         }
@@ -116,7 +116,7 @@ export default function Register() {
                                 Register
                             </button>
                         </div>)}
-                        {IsRegisterError ? registerError.map((error,index) =>(<p className="text-red-600" key={index}>{error.message}</p>))  : (
+                        {IsRegisterError ? registerError.map((error, index) => (<p className="text-red-600" key={index}>{error.message || error}</p>)) : (
                             <></>)}
                     </form>
                 </div>

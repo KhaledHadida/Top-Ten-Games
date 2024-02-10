@@ -18,6 +18,7 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 //redirecting page
 import RedirectPage from "./components/redirectpage";
 import Profile from "./components/profile";
+import DeletePanel from "./components/deletepanel";
 
 
 export default function UsersGameList() {
@@ -40,10 +41,19 @@ export default function UsersGameList() {
     setIsAddModalOpen(true);
   };
 
+  //For delete panel
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const openDeleteModal = () => {
+    setIsDeleteModalOpen(true);
+  };
+
   //For username, profile pic and desc
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
   const [profilePic, setProfilePic] = useState("");
+
+  //This is to store the current game that is about to be deleted (Not sure if this is best practice)
+  const [currentGameId, setCurrentGameId] = useState(null);
 
 
   //For add
@@ -99,8 +109,8 @@ export default function UsersGameList() {
 
   //Delete game
   const handleDeleteGame = (gameID) => {
-    console.log("Deleted game!");
-    deleteGame(token, gameID)
+    console.log("Game ID is " + gameID );
+    deleteGame(gameID)
       .then(() => {
         // Reload the game list after deletion
         getGameList(token).then((gameData) => {
@@ -113,6 +123,7 @@ export default function UsersGameList() {
         console.error('Error deleting game:', error);
       });
   };
+  
 
   useEffect(() => {
     //Here we update the backend
@@ -181,8 +192,12 @@ export default function UsersGameList() {
                           rank={game.rank}
                           gamePicture={game.gameCoverURL}
                           currentProfile={true}
-                          onDelete={() => handleDeleteGame(game._id)}
-                          editGame={refreshGameList}
+                          onDelete={() => {
+                            setCurrentGameId(game._id);
+                            openDeleteModal();
+                          }}
+                          // onDelete={() => handleDeleteGame(game._id)}
+                        editGame={refreshGameList}
                         />
                       </div>
                     )}
@@ -215,8 +230,17 @@ export default function UsersGameList() {
         // gamePicture={gamePicture}
         />
       )}
+
       {/* Delete button panel */}
-      
+      {isDeleteModalOpen && (
+        <DeletePanel
+          showModal={isDeleteModalOpen}
+          setShowModal={setIsDeleteModalOpen}
+          title={"Game"}
+          description={"Are you sure you want to delete game's review?"}
+          deleteThis={()=> handleDeleteGame(currentGameId)}
+        />
+      )}
     </main>
   )
 }

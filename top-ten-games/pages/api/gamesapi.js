@@ -27,7 +27,9 @@ export const getGameList = async (token) => {
 
 
 //Delete a game from user's list
-export const deleteGame = async (token, gameId) => {
+export const deleteGame = async (gameId) => {
+    //Fetch token from cookies
+    const token = getCookie('userId');
     console.log(`token is ${token} gameId is ${gameId}`)
     try {
         const response = await axios.post(`${backendUrl}/api/gameList/deleteGame/${gameId}`, null,

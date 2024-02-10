@@ -10,9 +10,6 @@ import { useAuth } from "./contexts/authcontext";
 ///////////////
 import { useLoading } from "./contexts/loadingcontext";
 import LoadingAnimation from "./components/loadinganimation";
-//Background - temp
-import AnimationBackground from "./components/animationbackground";
-
 
 
 export default function Users() {
@@ -20,7 +17,7 @@ export default function Users() {
     const [usersFound, setUsersFound] = useState([]);
     //Bool for finding users or not
     const [userFound, setUserFound] = useState(true);
-    const { isLoggedIn, login, logout } = useAuth();
+    const {  login, logout } = useAuth();
     const { setLoading, loading } = useLoading();
 
 
@@ -54,8 +51,9 @@ export default function Users() {
             setLoading(false);
             //Now check do we have them in an array?
             if (allusers.length > 0) {
-                console.log("found any users with that search ");
-                //We found a user NICE!
+                //Sort the user list alphabetically
+                allusers.sort(compare);
+                //We found a user.. NICE!
                 setUserFound(true);
                 //We load these users up!
                 setUsersFound(allusers);
@@ -75,14 +73,23 @@ export default function Users() {
         setSearchUser(event.target.value);
     };
 
+    //Basically a param used to sort the users by name alphabetically
+    function compare(a,b){
+        if(a.name < b.name){
+            return -1;
+        }else{
+            return 1;
+        }
+    }
+
     return (
         <>
             <Header />
             <main className={`min-h-screen flex-col items-center justify-between space-y-4`}>
                 <h1 className=" font-mono text-4xl text-center my-5">Search for your friends on here</h1>
-                <div className="flex justify-center items-center" >
+                <div className="flex justify-center items-center">
                     {/* This is search bar */}
-                    <form onSubmit={handleSubmit} style={{ width: '75%' }}>
+                    <form onSubmit={handleSubmit} style={{ width: '75%' }} className="z-10">
                         <input type="text" placeholder="Search Users by Name" value={searchUser} onChange={handleChange} style={{ width: '95%', padding: '10px' }} />
                         <button type="submit" >
                             <svg style={{ width: '95%', marginLeft: '10px' }} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
@@ -96,12 +103,10 @@ export default function Users() {
                 {loading ? (<LoadingAnimation />) : (
                     userFound ? (
                         usersFound.map((user) => (
-                            <UserEntry key={user._id} name={user.name} id={user._id} profilePic={user.profilePicId} desc={user.profileBio}  />
+                            <UserEntry key={user._id} name={user.name} id={user._id} profilePic={user.profilePicId} desc={user.profileBio} />
                         ))
                     ) : <p className="text-2xl text-center font-extralight font-thin">No Users found..</p>)}
 
-                    {/* Test out background here */}
-                    <AnimationBackground />
             </main>
         </>
     );

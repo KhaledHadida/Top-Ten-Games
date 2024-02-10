@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { updateGame } from "../api/gamesapi";
-import { Editor } from '@tinymce/tinymce-react';
 
 export default function EditGameEntryPanel({ showModal, setShowModal, id, name, reviewDescription, rank, gamePicture, editGame }) {
 
@@ -13,31 +12,6 @@ export default function EditGameEntryPanel({ showModal, setShowModal, id, name, 
     const handleNewRankChange = (e) => {
         setNewRank(e.target.value);
     }
-
-    // //useeffect
-    // useEffect(() => {
-    //     // Load TinyMCE script dynamically
-    //     const script = document.createElement('script');
-    //     script.src = 'https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js';
-    //     script.async = true;
-    //     script.onload = () => {
-    //         // Initialize TinyMCE
-    //         tinymce.init({
-    //             selector: '#editor',
-    //             // Additional configurations specific to this component
-    //             // ...
-    //         });
-    //     };
-
-    //     document.head.appendChild(script);
-
-    //     // Cleanup on component unmount
-    //     return () => {
-    //         if (tinymce) {
-    //             tinymce.remove('#editor');
-    //         }
-    //     };
-    // }, []);
 
     //Handle  change
     const handleNewReviewDescription = (e) => {
