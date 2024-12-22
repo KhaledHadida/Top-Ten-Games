@@ -55,13 +55,6 @@ export default function UsersGameList() {
   //This is to store the current game that is about to be deleted (Not sure if this is best practice)
   const [currentGameId, setCurrentGameId] = useState(null);
 
-
-  //For add
-  // Function to add a new game to the gameList state
-  // const addNewGame = (newGame) => {
-  //   setGameList([...gameList, newGame]);
-  // };
-
   //For refreshing the page upon changes (like adding/modifying)
   const [refresh, setRefresh] = useState(false);
   // Function to force a re-render
@@ -173,7 +166,7 @@ export default function UsersGameList() {
       {redirectBool ? (<RedirectPage text={"Seems like your session has expired.. Redirecting you to sign page!"} />
       ) : (!loading ? (<>
         <Profile name={name} description={desc} profilePic={profilePic} refresh={refreshGameList} myProfile={true} />
-        <h1 className="text-center font-bold text-3xl my-5">My top ten games</h1>
+        <h1 className="text-center font-serif font-bold text-3xl my-5">My top ten games</h1>
         <DragDropContext onDragEnd={onDragEnd}>
           {/* ... Your existing code ... */}
           <Droppable droppableId="gameList">
@@ -212,7 +205,7 @@ export default function UsersGameList() {
         {/* Center the loading animation */}
         {/* add button */}
         <div className="justify-center select-none pb-5 flex">
-          <button onClick={() => openAddModal()} className="py-5 px-10 shadow-md no-underline rounded-full bg-blue-500 text-white font-sans font-semibold text-sm border-blue btn-primary hover:text-white hover:bg-blue-light focus:outline-none active:shadow-none mr-2 text-4xl">+</button>
+          <button onClick={() => openAddModal()} className="py-5 px-10 shadow-md no-underline rounded-full bg-blue-500 text-white font-semibold border-blue btn-primary hover:text-white hover:bg-blue-light focus:outline-none active:shadow-none mr-2 text-4xl">+</button>
         </div>
       </>) : <div className="h-screen flex items-center justify-center"><LoadingAnimation /></div>
       )}

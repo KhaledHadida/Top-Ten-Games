@@ -5,7 +5,7 @@ import { addGame } from "../api/gamesapi";
 //Params:
 //showModal is a bool that controls whether to make the add game panel visible or not
 //setShowModal is a bool setter(?) - sets the bool's value
-//addNewGame is is the delegate function that is passed as a param, in this case it acts as a way to refresh the component (Probably not a great method)
+//addNewGame is is the callback function that is passed as a param, in this case it acts as a way to refresh the component (Probably not a great method)
 export default function AddGameEntryPanel({ showModal, setShowModal, addNewGame }) {
     //game name
     const [gameName, setGameName] = useState();

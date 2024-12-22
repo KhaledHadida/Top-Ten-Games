@@ -46,7 +46,7 @@ export default function Header() {
             <ul className="flex items-center justify-between bg-normal-blue p-2 relative z-10 shadow-2xl text-xl">
 
                 {isLoggedIn ? (<>
-                    <h1 className="font-extrabold pl-10 py-2 underline" style={{ fontSize: 25 }}>
+                    <h1 className="font-extrabold pl-10 py-5 underline " style={{ fontSize: 25 }}>
                         Top Ten Games
                     </h1>
                     <li className="mr-6">
@@ -59,7 +59,7 @@ export default function Header() {
                     <button className="text-white hover:text-blue-800" onClick={handleLogout}>Sign Out</button>
                 </li>) :
                     (<>
-                        <h1 className="font-extrabold pl-10 py-2 underline" style={{ fontSize: 25 }}>
+                        <h1 className="font-extrabold pl-10 py-5 underline font-mono" style={{ fontSize: 30 }}>
                             <a href="/home">Top Ten Games</a>
                         </h1>
                         <li className="mr-6">

@@ -86,7 +86,7 @@ export default function Users() {
         <>
             <Header />
             <main className={`min-h-screen flex-col items-center justify-between space-y-4`}>
-                <h1 className=" font-mono text-4xl text-center my-5">Search for your friends on here</h1>
+                <h1 className="font-mono text-4xl text-center my-5">Search for your friends on here</h1>
                 <div className="flex justify-center items-center">
                     {/* This is search bar */}
                     <form onSubmit={handleSubmit} style={{ width: '75%' }} className="z-10">
@@ -105,7 +105,7 @@ export default function Users() {
                         usersFound.map((user) => (
                             <UserEntry key={user._id} name={user.name} id={user._id} profilePic={user.profilePicId} desc={user.profileBio} />
                         ))
-                    ) : <p className="text-2xl text-center font-extralight font-thin">No Users found..</p>)}
+                    ) : <p className="text-2xl text-center font-extralight">No Users found..</p>)}
 
             </main>
         </>

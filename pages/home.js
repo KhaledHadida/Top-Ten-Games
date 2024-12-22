@@ -19,7 +19,7 @@ export default function Home() {
         <div className="text-center" style={{ zIndex: 1 }}>
           <h1 className="font-extrabold text-8xl mb-4">Welcome to Top Ten Games</h1>
           <h3 className="text-3xl mb-4">Where you can rank your top ten games and share your review with friends!</h3>
-          <h4 className="text-2xl">Start with signing up!</h4>
+          <h4 className="text-2xl">Start with registering!</h4>
         </div>
         {/* button for sign up */}
         <a

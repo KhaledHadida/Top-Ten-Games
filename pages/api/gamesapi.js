@@ -30,7 +30,6 @@ export const getGameList = async (token) => {
 export const deleteGame = async (gameId) => {
     //Fetch token from cookies
     const token = getCookie('userId');
-    console.log(`token is ${token} gameId is ${gameId}`)
     try {
         const response = await axios.post(`${backendUrl}/api/gameList/deleteGame/${gameId}`, null,
             {
@@ -100,7 +99,6 @@ export const addGame = async (name, gameReviewDesc) => {
 //Get specific user's game list
 export const getUserGameList = async (userId) => {
     try {
-        console.log("I AM GETTING  " + userId);
         const response = await axios.get(`${backendUrl}/api/gameList/fetchGameList/${userId}`,
             {
                 headers: {
@@ -109,7 +107,6 @@ export const getUserGameList = async (userId) => {
             });
             return response.data;
     } catch (error) {
-        console.log("RESPONSE " + userId);
         throw error;
     }
 }
