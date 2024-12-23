@@ -6,9 +6,9 @@ import { fetchUsers } from "./api/userapi";
 import { checkUserAuth } from "./api/userapi";
 import { getCookie } from './api/cookiemanage';
 import { useRouter } from "next/router";
-import { useAuth } from "./contexts/authcontext";
+import { useAuth } from "../contexts/authcontext";
 ///////////////
-import { useLoading } from "./contexts/loadingcontext";
+import { useLoading } from "../contexts/loadingcontext";
 import LoadingAnimation from "./components/loadinganimation";
 
 

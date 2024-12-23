@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import { useLoading } from "../contexts/loadingcontext";
+import { useLoading } from "../../contexts/loadingcontext";
 import LoadingAnimation from "../components/loadinganimation";
 import Header from "../header";
 import { getUserGameList } from "../api/gamesapi";

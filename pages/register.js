@@ -1,7 +1,7 @@
 import Header from "./header";
 import { registerUser } from "./api/userapi";
 import { useState, useEffect } from "react";
-import { useLoading } from "./contexts/loadingcontext";
+import { useLoading } from "../contexts/loadingcontext";
 import LoadingAnimation from "./components/loadinganimation";
 import { useRouter } from 'next/router';
 

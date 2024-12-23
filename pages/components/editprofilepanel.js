@@ -3,7 +3,7 @@ import { updateUserProfile } from '../api/userapi';
 import DeletePanel from './deletepanel';
 import { deleteUser } from '../api/userapi';
 import { useRouter } from 'next/router';
-import { useAuth } from '../contexts/authcontext';
+import { useAuth } from '../../contexts/authcontext';
 //The images from 1.png to 9.png
 const imageFiles = Array.from({ length: 9 }, (_, index) => `${index + 1}.png`);
 import Link from 'next/link';

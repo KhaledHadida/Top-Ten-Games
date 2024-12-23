@@ -2,11 +2,11 @@ import Header from "./header";
 import { useState } from "react";
 import { loginUser } from "./api/userapi";
 import { useRouter } from 'next/router';
-import { useAuth } from "./contexts/authcontext";
+import { useAuth } from "../contexts/authcontext";
 //Loading
 import LoadingAnimation from "./components/loadinganimation";
 import { checkUserAuth } from "./api/userapi";
-import { useLoading } from "./contexts/loadingcontext";
+import { useLoading } from "../contexts/loadingcontext";
 import Link from 'next/link';
 
 

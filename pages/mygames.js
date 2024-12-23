@@ -7,11 +7,11 @@ import { getGameList, deleteGame, addGame, updateGame } from "./api/gamesapi";
 import { useRouter } from "next/router";
 import AddGameEntryPanel from "./components/addgameentrypanel";
 //Loading components
-import { useLoading } from "./contexts/loadingcontext";
+import { useLoading } from "../contexts/loadingcontext";
 import LoadingAnimation from "./components/loadinganimation";
 //Check user auth
 import { checkUserAuth } from "./api/userapi";
-import { useAuth } from "./contexts/authcontext";
+import { useAuth } from "../contexts/authcontext";
 //Drag and drop
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 

@@ -1,4 +1,4 @@
-import { useLoading } from "../contexts/loadingcontext";
+import { useLoading } from "../../contexts/loadingcontext";
 import Image from 'next/image'
 
 function LoadingAnimation() {

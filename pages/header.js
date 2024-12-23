@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { loginUser } from './api/userapi';
-import { useAuth } from './contexts/authcontext';
+import { useAuth } from '../contexts/authcontext';
 import { deleteCookie } from './api/cookiemanage';
 import { useRouter } from 'next/router';
 import Link from 'next/link';

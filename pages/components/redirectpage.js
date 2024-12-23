@@ -1,6 +1,6 @@
 //This is gonna be a template page for redirecting, I made it as flexible as possible 
 import LoadingAnimation from "./loadinganimation"
-import { useLoading } from "../contexts/loadingcontext";
+import { useLoading } from "../../contexts/loadingcontext";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
