@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { useAuth } from '../contexts/authcontext';
 //The images from 1.png to 9.png
 const imageFiles = Array.from({ length: 9 }, (_, index) => `${index + 1}.png`);
+import Link from 'next/link';
 
 export default function EditProfilePanel({ showModal, setShowModal, currentName, currentDescription, currentProfilePic, refresh }) {
   const router = useRouter();
@@ -84,11 +85,11 @@ export default function EditProfilePanel({ showModal, setShowModal, currentName,
         {error && <p className={`text-red-500 font-bold`}>{error}</p>}
         {/* Credit to rightful owners for the profile pictures */}
         <div className='text-xs'>
-          <a href="https://www.freepik.com">Designed by rawpixel.com / Freepik</a>
+          <Link href="https://www.freepik.com">Designed by rawpixel.com / Freepik</Link>
         </div>
         {/* Delete account */}
         <label className='block mb-2 font-bold my-5'>
-          If you'd like to delete your account permanently
+          If you would like to delete your account permanently
         </label>
         <p className='italic text-xs text-gray-500 -mt-3 mb-4'>(This cannot be REVERSED!)</p>
         <button className="bg-red-500 hover:bg-red-600  text-white px-6 py-3 rounded-md" onClick={() => openDeleteModal()}>

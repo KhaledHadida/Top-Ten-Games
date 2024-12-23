@@ -47,7 +47,7 @@ export default function User({ username, gameList }) {
             <Profile name={name} description={desc} profilePic={profilePic} myProfile={false} />
             {/*The game panel */}
             {!loading ? (<>
-                <h1 className="text-center font-bold text-3xl my-5">{username}'s top ten games</h1>
+                <h1 className="text-center font-bold text-3xl my-5">{username} top ten games</h1>
                 {gameList.length > 0 ? (
                     gameList.map((game) => (
                         <GameEntry key={game._id} id={game._id} name={game.name} reviewDescription={game.reviewDescription} gameCoverURL={game.gameCoverURL} rank={game.rank} gamePicture={game.gameCoverURL} currentProfile={false}

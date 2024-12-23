@@ -1,6 +1,7 @@
 import Header from "./header"
 //Background
 import AnimationBackground from "./components/animationbackground";
+import Link from 'next/link';
 
 
 
@@ -22,11 +23,11 @@ export default function Home() {
           <h4 className="text-2xl">Start with registering!</h4>
         </div>
         {/* button for sign up */}
-        <a
+        <Link
           className="bg-blue-500 text-white active:bg-emerald-600 font-bold uppercase px-6 py-5 rounded shadow hover:shadow-lg outline-none focus:outline-none w-1/6 my-10 text-center"
           href="/register" style={{ zIndex: 1 }}>
           Register
-        </a>
+        </Link>
       </main>
     </div>
   );

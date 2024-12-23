@@ -4,6 +4,7 @@ import { loginUser } from './api/userapi';
 import { useAuth } from './contexts/authcontext';
 import { deleteCookie } from './api/cookiemanage';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 
 export default function Header() {
@@ -50,20 +51,20 @@ export default function Header() {
                         Top Ten Games
                     </h1>
                     <li className="mr-6">
-                        <a className="text-white hover:text-blue-800" href="/users">Users</a>
+                        <Link className="text-white hover:text-blue-800" href="/users">Users</Link>
                     </li>
                     <li className="mr-6">
-                        <a className="text-white hover:text-blue-800" href="/mygames">My Games</a>
+                        <Link className="text-white hover:text-blue-800" href="/mygames">My Games</Link>
                     </li></>) : (null)}
                 {isLoggedIn ? (<li className="mr-6">
                     <button className="text-white hover:text-blue-800" onClick={handleLogout}>Sign Out</button>
                 </li>) :
                     (<>
                         <h1 className="font-extrabold pl-10 py-5 underline font-mono" style={{ fontSize: 30 }}>
-                            <a href="/home">Top Ten Games</a>
+                            <Link href="/home">Top Ten Games</Link>
                         </h1>
                         <li className="mr-6">
-                            <a className="text-white hover:text-blue-800" href="/signin">Sign In</a>
+                            <Link className="text-white hover:text-blue-800" href="/signin">Sign In</Link>
                         </li>
                     </>
                     )}

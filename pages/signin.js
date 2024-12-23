@@ -7,6 +7,7 @@ import { useAuth } from "./contexts/authcontext";
 import LoadingAnimation from "./components/loadinganimation";
 import { checkUserAuth } from "./api/userapi";
 import { useLoading } from "./contexts/loadingcontext";
+import Link from 'next/link';
 
 
 export default function SignIn() {
@@ -98,7 +99,7 @@ export default function SignIn() {
                             <></>)}
                         {/* register button */}
                         <div>
-                            <p>No account? <a className="text-blue-600" href="../register">Register here!</a></p>
+                            <p>No account? <Link className="text-blue-600" href="../register">Register here!</Link></p>
                         </div>
                     </form>
                 </div>
