@@ -1,5 +1,4 @@
 import { useLoading } from "../../contexts/loadingcontext";
-import Image from 'next/image'
 
 function LoadingAnimation() {
     const { loading } = useLoading();
@@ -8,7 +7,7 @@ function LoadingAnimation() {
         <div className="loading-animation">
             {/* Your loading animation UI */}
             <div className="spinner ">
-                <Image
+                <img
                     src={"/images/spinner.gif"}
                     width={100} height={100}
                     style={{margin:"auto"}}

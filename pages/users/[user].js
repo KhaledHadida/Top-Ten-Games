@@ -27,14 +27,12 @@ export default function User({ username, gameList }) {
     useEffect(() => {
         // console.log("hey");
         const getProfile = async () => {
-            console.log("OK " + username);
             //PROBLEM HERE, this requires a token and we want to users' profiles to be public!
             const userProfile = await fetchUsers(username);
             //First search the user up (we fetch first!)
             setName(userProfile[0].name);
             setDesc(userProfile[0].profileBio);
             setProfilePic(userProfile[0].profilePicId);
-            console.log("WHAT S" + userProfile.name);
         }
 
         getProfile();
@@ -65,7 +63,6 @@ export default function User({ username, gameList }) {
 export async function getServerSideProps(context) {
     const { query } = context;
     const user = query.user;
-    console.log("DS");
 
     // Fetch game data based on user
     const userData = await getUserGameList(user);
