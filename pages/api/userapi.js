@@ -73,7 +73,7 @@ export const updateUserProfile = async (bio, picId, name) => {
 //Fetch users by name 
 export const fetchUsers = async (username) => {
     const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
-    const token = getCookie('userId');
+    // const token = getCookie('userId');
 
     const data = {
         name: username,
@@ -82,7 +82,7 @@ export const fetchUsers = async (username) => {
         const response = await axios.post(`${backendUrl}/api/users/fetch`, data, {
             headers: {
                 'Content-Type': 'application/json',
-                'x-auth-token': token
+                // 'x-auth-token': token
             },
         });
         return response.data.user;

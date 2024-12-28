@@ -10,7 +10,6 @@ export default function Profile({ name, description, profilePic, refresh, myProf
     const [profilePicture, setProfilePicture] = useState("");
     //To turn it on or off
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-    console.log(`Name is ${name} ${description}`);
     //Fetch profile pic
     useEffect(() => {
         setProfilePicture(`/Images/Profiles/${profilePic}`);

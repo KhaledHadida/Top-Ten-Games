@@ -8,10 +8,6 @@ import Link from 'next/link';
 //This is for home page that shows Welcome 
 export default function Home() {
   
-  //const { fetchLoginStatus, isLoggedIn, login, logout } = useAuth();
-
-  //Check if user has token
-
   return (
     <div className="flex flex-col min-h-screen drop-shadow-lg" style={{
       overflow: "hidden"

@@ -70,7 +70,6 @@ export default function UsersGameList() {
     const checkAuthentication = async () => {
       setLoading(true);
       const userAuth = await checkUserAuth(token);
-      console.log(userAuth);
       //If we are denied access.. send them to login page
       if (userAuth == null) {
         logout();
@@ -102,7 +101,6 @@ export default function UsersGameList() {
 
   //Delete game
   const handleDeleteGame = (gameID) => {
-    console.log("Game ID is " + gameID );
     deleteGame(gameID)
       .then(() => {
         // Reload the game list after deletion
@@ -124,7 +122,6 @@ export default function UsersGameList() {
       try {
         for (let index = 0; index < gameList.length; index++) {
           const newRank = index + 1;
-          console.log("Game is " + gameList[index].name + " and rank is " + newRank);
           // This is probably not the best method, but it's okay for now
           await updateGame(gameList[index]._id, newRank, gameList[index].reviewDescription);
         }

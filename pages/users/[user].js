@@ -10,8 +10,7 @@ import { checkUserAuth, fetchUsers } from "../api/userapi";
 import Profile from "../components/profile";
 
 export default function User({ username, gameList }) {
-    // const [gameList, setGameList] = useState([]);
-    const [isLoaded, setIsLoading] = useState(false);
+
     const router = useRouter();
     //Get what is in query
     const userId = router.query.user;
@@ -22,12 +21,11 @@ export default function User({ username, gameList }) {
     const [name, setName] = useState("");
     const [desc, setDesc] = useState("");
     const [profilePic, setProfilePic] = useState("");
-    const token = getCookie('userId');
+
+
     //Fetch API game list
     useEffect(() => {
-        // console.log("hey");
         const getProfile = async () => {
-            //PROBLEM HERE, this requires a token and we want to users' profiles to be public!
             const userProfile = await fetchUsers(username);
             //First search the user up (we fetch first!)
             setName(userProfile[0].name);
@@ -37,6 +35,7 @@ export default function User({ username, gameList }) {
 
         getProfile();
     }, []); //Only run once when page loads
+
 
     return (
         <main className={`min-h-screen flex-col items-center justify-between`}>
@@ -63,18 +62,28 @@ export default function User({ username, gameList }) {
 export async function getServerSideProps(context) {
     const { query } = context;
     const user = query.user;
-
     // Fetch game data based on user
-    const userData = await getUserGameList(user);
-    //Get
-    const username = userData.userName;
-    const gameList = userData.topGames;
+    try {
+        console.log("reached???");
 
-    return {
-        props: {
-            username,
-            gameList,
-        },
-    };
+        const userData = await getUserGameList(user);
+        const username = userData.userName;
+        const gameList = userData.topGames;
+
+        return {
+            props: {
+                username,
+                gameList,
+            },
+        };
+
+    } catch (error) {
+        console.error("Error fetching user data:", error);
+
+        return {
+            notFound: true,
+        };
+    }
+
 }
 

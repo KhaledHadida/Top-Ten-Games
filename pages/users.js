@@ -17,14 +17,13 @@ export default function Users() {
     const [usersFound, setUsersFound] = useState([]);
     //Bool for finding users or not
     const [userFound, setUserFound] = useState(true);
-    const {  login, logout } = useAuth();
+    const { login, logout } = useAuth();
     const { setLoading, loading } = useLoading();
 
 
     const router = useRouter();
     //Disable user from trying to access page without credentials
     useEffect(() => {
-        console.log("refresh" + usersFound.length);
         const token = getCookie('userId');
         //First check if user 
         const checkAuthentication = async () => {
@@ -41,12 +40,25 @@ export default function Users() {
         checkAuthentication();
     }, [usersFound]); //Only run once when page loads
 
+
+    useEffect(() => {
+
+        searchUsers();
+    }, []);
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         //Show loading till we fetch users!
         setLoading(true);
         // Do something with the form data, such as send it to a server
         //WAIT - we need to get users first async
+
+        await searchUsers();
+
+    };
+
+    //Search for users - Separated it so that I can call it upon loading the page.
+    const searchUsers = async () => {
         const users = await fetchUsers(searchUser).then((allusers) => {
             setLoading(false);
             //Now check do we have them in an array?
@@ -65,8 +77,7 @@ export default function Users() {
             }
         }
         );
-
-    };
+    }
 
     //Search users per stroke
     const handleChange = (event) => {
@@ -74,10 +85,10 @@ export default function Users() {
     };
 
     //Basically a param used to sort the users by name alphabetically
-    function compare(a,b){
-        if(a.name < b.name){
+    function compare(a, b) {
+        if (a.name < b.name) {
             return -1;
-        }else{
+        } else {
             return 1;
         }
     }

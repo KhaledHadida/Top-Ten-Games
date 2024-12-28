@@ -49,7 +49,6 @@ export default function SignIn() {
         } catch (error) {
             // Handle login failure
             setLoginError(true);
-            console.log(error);
             setSignInError(error.response.data.errors);
             //Loading off
             setLoading(false);

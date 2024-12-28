@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
     //Problem here is when user exits out of tab, this resets to false everytime
     const status = localStorage.getItem('isLoggedIn') === 'true';
     setIsLoggedIn(status);
-    console.log("Called " + status);
+    console.log("Are you logged in? " + status);
     return status;
   }
 
@@ -17,7 +17,6 @@ export const AuthProvider = ({ children }) => {
     setIsLoggedIn(true);
     //save it to session
     localStorage.setItem('isLoggedIn', true);
-    console.log("Logged in " + isLoggedIn);
   };
 
   const logout = () => {
