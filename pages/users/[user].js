@@ -9,6 +9,8 @@ import { getCookie } from "../api/cookiemanage";
 import { checkUserAuth, fetchUsers } from "../api/userapi";
 import Profile from "../components/profile";
 
+import Head from 'next/head';
+
 export default function User({ username, gameList }) {
 
     const router = useRouter();
@@ -38,7 +40,11 @@ export default function User({ username, gameList }) {
 
 
     return (
+
         <main className={`min-h-screen flex-col items-center justify-between`}>
+            <Head>
+                <title>{name} top ten games</title>
+            </Head>
             {/* Imported header */}
             <Header />
             <Profile name={name} description={desc} profilePic={profilePic} myProfile={false} />

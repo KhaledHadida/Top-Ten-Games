@@ -8,6 +8,7 @@ import LoadingAnimation from "./components/loadinganimation";
 import { checkUserAuth } from "./api/userapi";
 import { useLoading } from "../contexts/loadingcontext";
 import Link from 'next/link';
+import Head from 'next/head';
 
 
 export default function SignIn() {
@@ -58,6 +59,9 @@ export default function SignIn() {
     return (
         <>
             <Header />
+            <Head>
+                <title>Sign in</title>
+            </Head>
             {(<div className="bg-lighter-blue min-h-screen flex flex-col justify-center items-center">
                 <div className="bg-white p-2.5 rounded p-10 shadow-2xl outline outline-2 outline-blue-500 w-1/2">
                     <form onSubmit={handleLogin} >

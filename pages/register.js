@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useLoading } from "../contexts/loadingcontext";
 import LoadingAnimation from "./components/loadinganimation";
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 export default function Register() {
 
@@ -71,6 +72,9 @@ export default function Register() {
     return (
         <>
             <Header />
+            <Head>
+                <title>Register</title>
+            </Head>
             {/* The register panel */}
             <div className="bg-lighter-blue min-h-screen flex flex-col justify-center items-center">
                 <div className="bg-white p-2.5 rounded shadow-2xl p-10 outline outline-2 outline-blue-500" style={{ width: "50%" }}>

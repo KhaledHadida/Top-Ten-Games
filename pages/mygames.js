@@ -20,6 +20,8 @@ import RedirectPage from "./components/redirectpage";
 import Profile from "./components/profile";
 import DeletePanel from "./components/deletepanel";
 
+import Head from 'next/head';
+
 
 export default function UsersGameList() {
   var [gameList, setGameList] = useState([]);
@@ -114,7 +116,7 @@ export default function UsersGameList() {
         console.error('Error deleting game:', error);
       });
   };
-  
+
 
   useEffect(() => {
     //Here we update the backend
@@ -160,6 +162,9 @@ export default function UsersGameList() {
     <main className={`min-h-screen flex-col items-center justify-between`}>
       {/* Imported header */}
       <Header />
+      <Head>
+        <title>My Games</title>
+      </Head>
       {redirectBool ? (<RedirectPage text={"Seems like your session has expired.. Redirecting you to sign page!"} />
       ) : (!loading ? (<>
         <Profile name={name} description={desc} profilePic={profilePic} refresh={refreshGameList} myProfile={true} />
@@ -187,7 +192,7 @@ export default function UsersGameList() {
                             openDeleteModal();
                           }}
                           // onDelete={() => handleDeleteGame(game._id)}
-                        editGame={refreshGameList}
+                          editGame={refreshGameList}
                         />
                       </div>
                     )}
@@ -228,7 +233,7 @@ export default function UsersGameList() {
           setShowModal={setIsDeleteModalOpen}
           title={"Game"}
           description={"Are you sure you want to delete game's review?"}
-          deleteThis={()=> handleDeleteGame(currentGameId)}
+          deleteThis={() => handleDeleteGame(currentGameId)}
         />
       )}
     </main>
