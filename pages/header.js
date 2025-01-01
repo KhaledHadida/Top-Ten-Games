@@ -34,7 +34,7 @@ export default function Header() {
             //Delete cookie
             deleteCookie("userId");
             // If login is successful, navigate to the "mygames" page
-            router.push('/signin'); // Replace '/mygames' with the actual path of your "mygames" page
+            router.push('/'); // Replace '/mygames' with the actual path of your "mygames" page
         } catch (error) {
             // Handle login failure
             console.error('Logout failure:', error);
@@ -44,8 +44,8 @@ export default function Header() {
     return (
 
         <header>
-            <ul className="flex items-center justify-between bg-normal-blue p-2 relative z-10 shadow-2xl text-xl">
-
+            {isLoggedIn ? (<>
+                <ul className="flex items-center justify-between bg-normal-blue p-2 relative z-10 shadow-2xl text-xl">
                 {isLoggedIn ? (<>
                     <h1 className="font-extrabold pl-10 py-5 underline " style={{ fontSize: 25 }}>
                         Top Ten Games
@@ -61,7 +61,7 @@ export default function Header() {
                 </li>) :
                     (<>
                         <h1 className="font-extrabold pl-10 py-5 underline font-mono" style={{ fontSize: 30 }}>
-                            <Link href="/home">Top Ten Games</Link>
+                            <Link href="/"><h1>Top Ten Games</h1></Link>
                         </h1>
                         <li className="mr-6">
                             <Link className="text-white hover:text-blue-800" href="/signin">Sign In</Link>
@@ -69,7 +69,10 @@ export default function Header() {
                     </>
                     )}
                 {/* onClick={handleSignIn} */}
-            </ul>
+                </ul>
+            
+            </>): (null)}
+            
         </header>
     )
 }

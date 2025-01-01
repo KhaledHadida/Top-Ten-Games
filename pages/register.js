@@ -5,6 +5,7 @@ import { useLoading } from "../contexts/loadingcontext";
 import LoadingAnimation from "./components/loadinganimation";
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import Link from "next/link";
 
 export default function Register() {
 
@@ -77,11 +78,12 @@ export default function Register() {
             </Head>
             {/* The register panel */}
             <div className="bg-lighter-blue min-h-screen flex flex-col justify-center items-center">
-                <div className="bg-white p-2.5 rounded shadow-2xl p-10 outline outline-2 outline-blue-500" style={{ width: "50%" }}>
+                <div className="bg-white p-2.5 rounded shadow-2xl p-10 outline outline-2 outline-blue-500 w-1/3">
                     <form onSubmit={handleRegister} >
-                        <h1 className="text-3xl font-semibold items-center text-center">Register below</h1>
+                        <h1 className="text-3xl font-semibold items-center">Create an Account</h1>
+                        <p>Your ranking journey starts here.</p>
                         <div className="mt-4">
-                            <label htmlFor="userName" className="block font-bold">Name</label>
+                            <label htmlFor="userName" className="block font-bold">Username</label>
                             <input
                                 id="userName"
                                 type="text"
@@ -91,11 +93,11 @@ export default function Register() {
                             />
                         </div>
                         <div className="mt-4">
-                            <label htmlFor="email" className="block font-bold">Email</label>
+                            <label htmlFor="email" className="block font-bold">Email Address</label>
                             <input
                                 id="email"
                                 type="text"
-                                placeholder="Enter Email"
+                                placeholder="Enter Email Address"
                                 onChange={handleEmailChange}
                                 className="p-2.5 text-sm w-full bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             />
@@ -113,7 +115,7 @@ export default function Register() {
                         <p className={`text-center mb-5 text-green-500 font-bold ${registerComplete ? '' : 'hidden'}`}>Your account has been successfully registered! Redirecting..</p>
                         {loading ? (<LoadingAnimation />) : (<div className="mt-6">
                             <button
-                                className="bg-blue-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none w-full"
+                                className="bg-blue-500 text-white active:bg-emerald-600 font-bold text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none w-full"
                                 type="submit"
                             // Close the pop-up and update game with API & add the newest game so we can refresh it on the frontend
                             >
@@ -123,6 +125,7 @@ export default function Register() {
                         {IsRegisterError ? registerError.map((error, index) => (<p className="text-red-600" key={index}>{error.message || error}</p>)) : (
                             <></>)}
                     </form>
+                    <p className="mt-5">Already have an account? <Link className="text-blue-600 dark:text-blue-500 hover:underline" href="/signin">Sign in</Link></p>
                 </div>
             </div>
         </>

@@ -1,13 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import '~tinymce/skins/ui/oxide/skin.css';
-@import '~tinymce/skins/ui/oxide/content.css';
+@import "~tinymce/skins/ui/oxide/skin.css";
+@import "~tinymce/skins/ui/oxide/content.css";
 
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+}
+
+h1 {
+  font-family: "Della Respira", serif;
+}
+
+* {
+  font-family: "Open Sans", serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -20,11 +28,13 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom,
+  background: linear-gradient(
+      to bottom,
       transparent,
-      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
 }
-
 
 /* Animation for background */
 .box {
@@ -33,7 +43,7 @@ body {
   transform: translate(-50%, -50%);
   width: 150px;
   height: 50px;
-  background-color: #87C4FF;
+  background-color: #87c4ff;
   animation: moveBox 10s linear infinite;
 }
 

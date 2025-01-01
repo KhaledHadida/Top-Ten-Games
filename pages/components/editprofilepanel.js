@@ -34,7 +34,7 @@ export default function EditProfilePanel({ showModal, setShowModal, currentName,
           //"log" them out
           logout();
           //redirect him to homepage
-          router.push('./home'); // Replace '/mygames' with the actual path of your "mygames" page
+          router.push('./'); // Replace '/mygames' with the actual path of your "mygames" page
         })
         .catch((error) => {
           console.error('Error deleting user:', error);
