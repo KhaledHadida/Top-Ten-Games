@@ -100,6 +100,7 @@ export default function Register() {
                                 className="p-2.5 text-sm w-full bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             />
                         </div>
+                        <p className="italic text-xs">The email does not have to be real.</p>
                         <div className="mt-4">
                             <label htmlFor="password" className="block font-bold">Password</label>
                             <input

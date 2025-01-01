@@ -35,6 +35,7 @@ export default function AddGameEntryPanel({ showModal, setShowModal, addNewGame 
 
         try {
             //First 
+            console.log(gameName);
             await addGame(gameName, reviewDescription).then(() => {
                 setShowModal(false);
                 //Refresh the entire page to reflect change 
@@ -60,6 +61,7 @@ export default function AddGameEntryPanel({ showModal, setShowModal, addNewGame 
                 <label className="block mb-2">
                     <p className='font-bold'>Title:</p>
                     <input type="text" placeholder="Enter a title here" onChange={handleGameNameChange} className="border rounded-md p-1 w-full" />
+                    <p className="italic text-xs">Please ensure the name is accurate to the letter.</p>
                 </label>
                 <label className="block mb-2">
                     <p className='font-bold'>Review Description:</p>
