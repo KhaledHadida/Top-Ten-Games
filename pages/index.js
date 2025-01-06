@@ -15,13 +15,13 @@ export default function Home() {
       <Header />
       <main className="flex flex-col items-center justify-center flex-1" >
         <AnimationBackground />
-        <div className="text-center bg-white p-5 rounded-lg" style={{ zIndex: 1 }}>
+        <div className="text-center bg-[#87c4ff] bg-opacity-85 p-10 rounded-lg drop-shadow-lg" style={{ zIndex: 1 }}>
           <p className="text-3xl">Welcome to</p>
           <h1 className="font-extrabold text-8xl mb-4">Top Ten Games</h1>
-          <p className="text-3xl mb-4">Rank your top ten games and share your review with friends!</p>
+          <p className="text-3xl mb-4 text-[#112D4E]">Rank your top ten games and share your review with friends!</p>
           {/* button for sign in */}
-          <div className="py-5">
-            <Link className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-3xl px-5 py-2.5 text-center me-2 mb-2" href="/signin">Sign In</Link>
+          <div className="pt-10 pb-5">
+            <Link className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-5 border-b-4 border-blue-700 hover:border-blue-800 rounded text-2xl" href="/signin">Sign In</Link>
           </div>
         </div>
       </main>

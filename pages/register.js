@@ -78,7 +78,7 @@ export default function Register() {
             </Head>
             {/* The register panel */}
             <div className="bg-lighter-blue min-h-screen flex flex-col justify-center items-center">
-                <div className="bg-white p-2.5 rounded shadow-2xl p-10 outline outline-2 outline-blue-500 w-1/3">
+                <div className="bg-white rounded shadow-2xl p-10 w-1/3">
                     <form onSubmit={handleRegister} >
                         <h1 className="text-3xl font-semibold items-center">Create an Account</h1>
                         <p>Your ranking journey starts here.</p>
