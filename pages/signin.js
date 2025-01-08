@@ -98,7 +98,7 @@ export default function SignIn() {
                                         onChange={handleEmailChange}
                                     />
                                 </div>
-                                {emailError ? (<p className="mt-2 text-sm text-red-600 dark:text-red-500">Email error</p>) : (<></>)}
+                                {emailError ? (<p className="mt-2 text-sm text-red-600 dark:text-red-500">Email cannot be empty</p>) : (<></>)}
                             </div>
                             <div className="mt-4">
                                 <label htmlFor="password" className="block font-bold">Password</label>
@@ -115,7 +115,7 @@ export default function SignIn() {
                                         onChange={handlePasswordChange}
                                     />
                                 </div>
-                                {passwordError ? (<p className="mt-2 text-sm text-red-600 dark:text-red-500">Password error</p>) : (<></>)}
+                                {passwordError ? (<p className="mt-2 text-sm text-red-600 dark:text-red-500">Password cannot be empty</p>) : (<></>)}
                             </div>
                             <div className="mt-6">
                                 {loading ? (<LoadingAnimation />
