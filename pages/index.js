@@ -12,7 +12,6 @@ export default function Home() {
     <div className="flex flex-col min-h-screen drop-shadow-lg" style={{
       overflow: "hidden"
     }}>
-      <Header />
       <main className="flex flex-col items-center justify-center flex-1" >
         <AnimationBackground />
         <div className="text-center bg-[#87c4ff] bg-opacity-85 p-10 rounded-lg drop-shadow-lg" style={{ zIndex: 1 }}>

@@ -21,9 +21,9 @@ export default function Profile({ name, description, profilePic, refresh, myProf
 
     return (<>
         <div className="font-serif flex items-stretch shadow-xl relative bg-light-blue">
-            <img className="my-5 ml-40" style={{ width: 250, height: 250, textAlign: "center" }} src={profilePicture} alt="No Image?"></img>
+            <img className="my-5 ml-40 rounded-lg" style={{ width: 250, height: 250, textAlign: "center" }} src={profilePicture} alt="No Image?"></img>
             <div className="m-10">
-                <h1 className="text-2xl font-semibold ">{name}</h1>
+                <h1 className="text-2xl">Hello <b>{name}</b></h1>
                 <p className="">{description}</p>
             </div>
             {myProfile && (

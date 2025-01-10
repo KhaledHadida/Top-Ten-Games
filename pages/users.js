@@ -102,7 +102,7 @@ export default function Users() {
                 <title>Search for Users</title>
             </Head>
             <main className={`min-h-screen flex-col items-center justify-between space-y-4`}>
-                <h1 className="font-mono text-4xl text-center my-5">Search for your friends on here</h1>
+            <h1 className="font-mono text-4xl my-5">Search user</h1>
                 <div className="flex justify-center items-center">
                     {/* This is search bar */}
                     <form onSubmit={handleSubmit} style={{ width: '75%' }} className="z-10">

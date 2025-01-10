@@ -6,6 +6,10 @@ import { deleteCookie } from './api/cookiemanage';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
+import { FaSignOutAlt } from "react-icons/fa";
+import { FaSignInAlt } from "react-icons/fa";
+
+
 
 export default function Header() {
     const [data, setData] = useState({});
@@ -43,36 +47,47 @@ export default function Header() {
 
     return (
 
+
+        
         <header>
-            {isLoggedIn ? (<>
-                <ul className="flex items-center justify-between bg-normal-blue p-2 relative z-10 shadow-2xl text-xl">
-                {isLoggedIn ? (<>
-                    <h1 className="font-extrabold pl-10 py-5 underline " style={{ fontSize: 25 }}>
-                        Top Ten Games
-                    </h1>
-                    <li className="mr-6">
-                        <Link className="text-white hover:text-blue-800" href="/users">Users</Link>
-                    </li>
-                    <li className="mr-6">
-                        <Link className="text-white hover:text-blue-800" href="/mygames">My Games</Link>
-                    </li></>) : (null)}
-                {isLoggedIn ? (<li className="mr-6">
-                    <button className="text-white hover:text-blue-800" onClick={handleLogout}>Sign Out</button>
-                </li>) :
-                    (<>
-                        <h1 className="font-extrabold pl-10 py-5 underline font-mono" style={{ fontSize: 30 }}>
-                            <Link href="/"><h1>Top Ten Games</h1></Link>
-                        </h1>
-                        <li className="mr-6">
-                            <Link className="text-white hover:text-blue-800" href="/signin">Sign In</Link>
-                        </li>
-                    </>
-                    )}
-                {/* onClick={handleSignIn} */}
-                </ul>
-            
-            </>): (null)}
-            
+
+{isLoggedIn ? (<>
+
+    <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+        <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+            <p class="flex items-center">
+                <img src="/Images/TTG.png" class="mr-3 h-6 sm:h-9" alt="TTG Logo" />
+                <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Top Ten Games</span>
+            </p>
+            <div class="flex items-center order-2">
+                <a onClick={handleLogout} class="text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 hover:cursor-pointer hover:text-[#0036B1] flex flex-row items-center gap-3">Sign out <FaSignOutAlt size={20}/></a>
+            </div>
+            <ul class="flex mt-4 font-medium space-x-10 lg:mt-0">
+                <li>
+                    <a href="/mygames" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 hover:text-[#0036B1]">My games</a>
+                </li>
+                <li>
+                    <a href="/users" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 hover:text-[#0036B1]">Users</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</>) : 
+(<>
+    <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+        <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+            <a href='/' class="flex items-center">
+                <img src="/Images/TTG.png" class="mr-3 h-6 sm:h-9" alt="TTG Logo" />
+                <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Top Ten Games</span>
+            </a>
+            <div class="flex items-center lg:order-2">
+                <a href='/signin' class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800 hover:cursor-pointer hover:text-[#0036B1] flex flex-row items-center gap-3">Sign in <FaSignInAlt size={20}/></a>
+            </div>
+        </div>
+    </nav>
+</>)
+
+}   
         </header>
     )
 }
