@@ -85,8 +85,8 @@ export default function SignIn() {
                             <h1 className="text-4xl font-semibold">Sign in</h1>
                             <div className="mt-4">
                                 <label htmlFor="email" className="block font-bold">Email</label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                <div className="relative">
+                                    <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                                         <MdEmail/>
                                     </div>
                                     <input 
@@ -102,8 +102,8 @@ export default function SignIn() {
                             </div>
                             <div className="mt-4">
                                 <label htmlFor="password" className="block font-bold">Password</label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                <div className="relative">
+                                    <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                                         <RiLockPasswordFill/>
                                     </div>
                                     <input 
