@@ -159,7 +159,7 @@ export default function UsersGameList() {
 
 
   return (
-    <main className={`min-h-screen flex-col items-center justify-between`}>
+    <main className="min-h-screen">
       {/* Imported header */}
       <Header />
       <Head>
@@ -168,9 +168,11 @@ export default function UsersGameList() {
       {redirectBool ? (<RedirectPage text={"Seems like your session has expired.. Redirecting you to sign page!"} />
       ) : (!loading ? (<>
         <Profile name={name} description={desc} profilePic={profilePic} refresh={refreshGameList} myProfile={true} />
-        <h1 className="text-center font-serif font-bold text-3xl my-5">My top ten games</h1>
+      <div className="mx-5">
+        <div className="max-w-screen-xl px-4 py-2.5">
+          <h1 className="font-serif font-bold text-3xl">My Top Ten Games</h1>
+        </div>
         <DragDropContext onDragEnd={onDragEnd}>
-          {/* ... Your existing code ... */}
           <Droppable droppableId="gameList">
             {(provided) => (
               <div ref={provided.innerRef}>
@@ -203,11 +205,14 @@ export default function UsersGameList() {
             )}
           </Droppable>
         </DragDropContext>
+      </div>
+        
+
         {/* If user is not logged in then display a suggestion to login page */}
         {/* Center the loading animation */}
         {/* add button */}
         <div className="justify-center select-none pb-5 flex">
-          <button onClick={() => openAddModal()} className="py-5 px-10 shadow-md no-underline rounded-full bg-blue-500 text-white font-semibold border-blue btn-primary hover:text-white hover:bg-blue-light focus:outline-none active:shadow-none mr-2 text-4xl">+</button>
+          <button onClick={() => openAddModal()} className="py-5 px-10 shadow-md no-underline rounded-full bg-green-500 text-white font-semibold border-blue btn-primary hover:text-white hover:bg-blue-light focus:outline-none active:shadow-none mr-2 text-4xl">+</button>
         </div>
       </>) : <div className="h-screen flex items-center justify-center"><LoadingAnimation /></div>
       )}

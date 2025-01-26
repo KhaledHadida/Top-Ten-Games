@@ -8,6 +8,8 @@ import Link from 'next/link';
 
 import { FaSignOutAlt } from "react-icons/fa";
 import { FaSignInAlt } from "react-icons/fa";
+import { FaUsers } from "react-icons/fa";
+import { FaGamepad } from "react-icons/fa";
 
 
 
@@ -60,14 +62,14 @@ export default function Header() {
                 <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Top Ten Games</span>
             </p>
             <div className="flex items-center order-2">
-                <button onClick={handleLogout} className="text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 hover:cursor-pointer hover:text-[#0036B1] flex flex-row items-center gap-3">Sign out <FaSignOutAlt size={20}/></button>
+                <button onClick={handleLogout} className="text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 hover:cursor-pointer hover:text-[#0036B1] flex flex-row items-center gap-3"><FaSignOutAlt size={20}/>Sign out </button>
             </div>
             <ul className="flex mt-4 font-medium space-x-10 lg:mt-0">
                 <li>
-                    <Link href="/mygames" className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 hover:text-[#0036B1]">My games</Link>
+                    <Link href="/mygames" className="py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 hover:text-[#0036B1] flex flex-row items-center gap-3"><FaGamepad size={20}/> My games</Link>
                 </li>
                 <li>
-                    <Link href="/users" className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 hover:text-[#0036B1]">Users</Link>
+                    <Link href="/users" className="py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 hover:text-[#0036B1] flex flex-row items-center gap-3"><FaUsers size={20}/>Users</Link>
                 </li>
             </ul>
         </div>
@@ -81,7 +83,7 @@ export default function Header() {
                 <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Top Ten Games</span>
             </Link>
             <div className="flex items-center lg:order-2">
-                <Link href='/signin' className="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800 hover:cursor-pointer hover:text-[#0036B1] flex flex-row items-center gap-3">Sign in <FaSignInAlt size={20}/></Link>
+                <Link href='/signin' className="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800 hover:cursor-pointer hover:text-[#0036B1] flex flex-row items-center gap-3"><FaSignInAlt size={20}/>Sign in </Link>
             </div>
         </div>
     </nav>

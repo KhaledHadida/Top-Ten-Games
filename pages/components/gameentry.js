@@ -43,11 +43,11 @@ export default function GameEntry({ id, name, reviewDescription, rank, gamePictu
           {currentProfile ? (
             <div className="lg:w-1/10 flex justify-end">
               {/* Edit button */}
-              <button onClick={openModal} className="ml-5 h-12 w-24 bg-green-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+              <button onClick={openModal} className="ml-5 h-10 w-24 bg-green-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
                 Edit
               </button>
               {/* X button */}
-              <button className="bg-red-500 h-12 w-14 hover:bg-blue-700 text-white font-bold py-2 px-4 ml-2 rounded-full" onClick={onDelete}>
+              <button className="bg-red-500 h-10 w-12 hover:bg-red-700 text-white font-bold py-2 px-2 ml-2 rounded-full" onClick={onDelete}>
                 <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>

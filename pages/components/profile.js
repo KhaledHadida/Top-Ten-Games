@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import EditProfilePanel from "./editprofilepanel";
+import { FaUserEdit } from "react-icons/fa";
+
 
 //Get current user's name?
 
@@ -20,15 +22,15 @@ export default function Profile({ name, description, profilePic, refresh, myProf
     };
 
     return (<>
-        <div className="font-serif flex items-stretch shadow-xl relative bg-light-blue">
+        <div className="font-serif flex items-stretch shadow-xl relative bg-gray-200">
             <img className="my-5 ml-40 rounded-lg" style={{ width: 250, height: 250, textAlign: "center" }} src={profilePicture} alt="No Image?"></img>
             <div className="m-10">
-                <h1 className="text-2xl">Hello <b>{name}</b></h1>
+                <h1 className="text-2xl">Hello <b>{name}</b>.</h1>
                 <p className="">{description}</p>
             </div>
             {myProfile && (
-                <button onClick={() => openAddModal()} className="absolute top-5 right-40 h-12 w-34 bg-green-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
-                    Edit Profile
+                <button onClick={() => openAddModal()} className="absolute top-5 right-40 h-12 w-34 bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded flex justify-evenly gap-2 items-center">
+                    <FaUserEdit /><p>Edit Profile</p>
                 </button>
             )
             }

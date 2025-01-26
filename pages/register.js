@@ -116,7 +116,7 @@ export default function Register() {
                                         : "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"} 
                                 />
                             </div>
-                            {userNameError ? (<p className="mt-2 text-sm text-red-600 dark:text-red-500">Username is empty</p>) : (<></>)}
+                            {userNameError ? (<p className="mt-2 text-sm text-red-600 dark:text-red-500">Username cannot be empty.</p>) : (<></>)}
                         </div>
                         <div className="mt-4">
                             <label htmlFor="email" className="block font-bold">Email Address</label>
@@ -134,7 +134,7 @@ export default function Register() {
                                 />
                             </div>
                             <p className="italic text-xs">The email does not have to be real.</p>
-                            {emailError ? (<p className="mt-2 text-sm text-red-600 dark:text-red-500">Email is invalid</p>) : (<></>)}
+                            {emailError ? (<p className="mt-2 text-sm text-red-600 dark:text-red-500">Email is invalid.</p>) : (<></>)}
                         </div>
                         <div className="mt-4">
                             <label htmlFor="password" className="block font-bold">Password</label>
@@ -151,7 +151,7 @@ export default function Register() {
                                     onChange={handlePasswordChange}
                                 />
                             </div>
-                            {passwordError ? (<p className="mt-2 text-sm text-red-600 dark:text-red-500">Password cannot be empty</p>) : (<></>)}
+                            {passwordError ? (<p className="mt-2 text-sm text-red-600 dark:text-red-500">Password cannot be empty.</p>) : (<></>)}
                         </div>
                         <p className={`text-center mb-5 text-green-500 font-bold ${registerComplete ? '' : 'hidden'}`}>Your account has been successfully registered! Redirecting..</p>
                         {loading ? (<LoadingAnimation />) : (<div className="mt-6">
