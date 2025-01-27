@@ -43,14 +43,16 @@ export default function User({ username, gameList }) {
 
         <main className={`min-h-screen flex-col items-center justify-between`}>
             <Head>
-                <title>{name} top ten games</title>
+                <title>{name}'s Top Ten Games</title>
             </Head>
             {/* Imported header */}
             <Header />
             <Profile name={name} description={desc} profilePic={profilePic} myProfile={false} />
             {/*The game panel */}
-            {!loading ? (<>
-                <h1 className="text-center font-bold text-3xl my-5">{username} top ten games</h1>
+            {!loading ? (<div className="mx-20">
+                <div className="py-2.5">
+                    <h1 className="font-serif font-bold text-3xl">{name}'s Top Ten Games</h1>
+                </div>
                 {gameList.length > 0 ? (
                     gameList.map((game) => (
                         <GameEntry key={game._id} id={game._id} name={game.name} reviewDescription={game.reviewDescription} gameCoverURL={game.gameCoverURL} rank={game.rank} gamePicture={game.gameCoverURL} currentProfile={false}
@@ -59,7 +61,7 @@ export default function User({ username, gameList }) {
                 ) : (<p className="text-center italic mt-20">Hmm looks like this user has no favourite games..</p>)}
                 <p></p>
                 {/* If user is not logged in then display a suggestion to login page */}
-            </>) : <LoadingAnimation />
+            </div>) : <LoadingAnimation />
             }
         </main>
     )

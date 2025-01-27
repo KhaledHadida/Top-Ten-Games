@@ -1,5 +1,8 @@
 import { useState } from "react";
 import EditGameEntryPanel from "./editgameentrypanel";
+import { FaTrophy } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
+
 
 export default function GameEntry({ id, name, reviewDescription, rank, gamePicture, onDelete, editGame, currentProfile }) {
   //Current profile is a basic bool that determines whether this is my profile or someone else's (through search)
@@ -24,11 +27,25 @@ export default function GameEntry({ id, name, reviewDescription, rank, gamePictu
   ];
 
   return (
-    <div className="flex items-center">
-      <p className="mx-[2%] text-4xl font-bold">#{rank || "NA"}</p>
+    <div className="flex items-center relative">
+      <div className="absolute top-0 left-0 z-10 w-0 h-0 border-t-[100px] border-r-[100px] border-r-transparent">
+        {rank === 1 && (
+          <p className="absolute bottom-12 left-3 mx-[2%] text-4xl font-bold text-yellow-500"><FaTrophy /></p>
+        )}
+        {rank === 2 && (
+          <p className="absolute bottom-12 left-3 mx-[2%] text-4xl font-bold text-gray-400"><FaTrophy /></p>
+        )}
+        {rank === 3 && (
+          <p className="absolute bottom-12 left-3 mx-[2%] text-4xl font-bold text-orange-700"><FaTrophy /></p>
+        )}
+        {rank > 3 && (
+          <p className="absolute bottom-12 left-3 mx-[2%] text-4xl font-bold">{rank || "NA"}</p>
+        )}
+
+      </div>
       <span hidden>{id}</span>
       {/* FONT HERE This is style below I commented out: min-h-[35vh] max-h-[40vh] overflow-hidden */}
-      <div className="font-serif flex-grow rounded-lg mr-24 p-4 mb-5 text-gray-900" style={{ backgroundColor: shades[rank-1]}} >
+      <div className="font-serif flex-grow rounded-lg p-4 mb-5 text-gray-900" style={{ backgroundColor: "#81ACD8"}} >
         <div className="flex flex-col justify-between lg:flex-row relative ">
           {/*This flex is to set the picture and description beside each other horizontally*/}
           <div className="w-full lg:w-2/10 flex items-center">
@@ -43,11 +60,11 @@ export default function GameEntry({ id, name, reviewDescription, rank, gamePictu
           {currentProfile ? (
             <div className="lg:w-1/10 flex justify-end">
               {/* Edit button */}
-              <button onClick={openModal} className="ml-5 h-10 w-24 bg-green-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
-                Edit
+              <button onClick={openModal} className="ml-5 h-10 w-24 bg-green-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded flex justify-evenly gap-2 items-center">
+                <FaEdit />Edit
               </button>
               {/* X button */}
-              <button className="bg-red-500 h-10 w-12 hover:bg-red-700 text-white font-bold py-2 px-2 ml-2 rounded-full" onClick={onDelete}>
+              <button className="bg-red-500 h-10 w-12 hover:bg-red-700 text-white font-bold py-2 px-2 ml-2 rounded-full flex justify-center" onClick={onDelete}>
                 <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>

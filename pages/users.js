@@ -101,11 +101,11 @@ export default function Users() {
             <Head>
                 <title>Search for Users</title>
             </Head>
-            <main className={`min-h-screen flex-col items-center justify-between space-y-4`}>
-            <h1 className="font-mono text-4xl my-5">Search user</h1>
-                <div className="flex justify-center items-center">
+            <main className={`min-h-screen flex-col items-center justify-between space-y-4 mx-20`}>
+            <h1 className="font-bold text-4xl my-5">Search User</h1>
+                <div className="">
                     {/* This is search bar */}
-                    <form onSubmit={handleSubmit} style={{ width: '75%' }} className="z-10">
+                    <form onSubmit={handleSubmit} className="z-10">
                         <input type="text" placeholder="Search Users by Name" value={searchUser} onChange={handleChange} style={{ width: '95%', padding: '10px' }} />
                         <button type="submit" >
                             <svg style={{ width: '95%', marginLeft: '10px' }} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
@@ -116,13 +116,14 @@ export default function Users() {
                     {/* User profiles according to search */}
                 </div>
                 {/* Basically here I am first checking if it is loading.. If it is loaded show the users found if not show loading */}
+                <div className="flex gap-5 flex-wrap">
                 {loading ? (<LoadingAnimation />) : (
                     userFound ? (
                         usersFound.map((user) => (
-                            <UserEntry key={user._id} name={user.name} id={user._id} profilePic={user.profilePicId} desc={user.profileBio} />
+                                <UserEntry key={user._id} name={user.name} id={user._id} profilePic={user.profilePicId} desc={user.profileBio} />
                         ))
                     ) : <p className="text-2xl text-center font-extralight">No Users found..</p>)}
-
+                </div>
             </main>
         </>
     );

@@ -17,14 +17,20 @@ export default function UserEntry({ name, id, desc, profilePic }) {
     }
     
     return (
-        <div className="flex justify-center">
+        <div className="">
             {/* Image for user */}
             <p hidden>{id}</p>
-            <button onClick={handleUserProfile} className='flex outline outline-2 bg-blue-400 mb-5' style={{ width: '75%', padding: '15px' }}>
-                <img className="mr-5" style={{ width: 250, height: 250 }} src={`../Images/Profiles/${profilePic}`} alt="No Image"></img>
-                <div className="flex flex-col items-start">
-                    <h1 className="font-semibold text-2xl">{name || "PERSON NAME"}</h1>
-                    <p>{desc}</p>
+            <button onClick={handleUserProfile} className='w-[250px] h-[350px] flex flex-col items-center justify-center bg-[#81ACD8] mb-5 rounded-lg overflow-ellipsis'>
+                <img className="h-[230px] w-[230px] rounded-full object-fit shadow-lg"  src={`../Images/Profiles/${profilePic}`} alt="No Image"></img>
+                <div className="p-2">
+                    <p className="text-2xl">{name || "PERSON NAME"}</p>
+                    <p className="text-gray-700 overflow-ellipsis overflow-hidden" style={{
+                        display: '-webkit-box',
+                        WebkitBoxOrient: 'vertical',
+                        WebkitLineClamp: 2
+                        }}>
+                        {desc}
+                    </p>
                 </div>
             </button>
         </div>

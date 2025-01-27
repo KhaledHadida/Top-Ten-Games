@@ -168,8 +168,8 @@ export default function UsersGameList() {
       {redirectBool ? (<RedirectPage text={"Seems like your session has expired.. Redirecting you to sign page!"} />
       ) : (!loading ? (<>
         <Profile name={name} description={desc} profilePic={profilePic} refresh={refreshGameList} myProfile={true} />
-      <div className="mx-5">
-        <div className="max-w-screen-xl px-4 py-2.5">
+      <div className="mx-20">
+        <div className="py-2.5">
           <h1 className="font-serif font-bold text-3xl">My Top Ten Games</h1>
         </div>
         <DragDropContext onDragEnd={onDragEnd}>
