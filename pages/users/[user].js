@@ -43,7 +43,7 @@ export default function User({ username, gameList }) {
 
         <main className={`min-h-screen flex-col items-center justify-between`}>
             <Head>
-                <title>{name}'s Top Ten Games</title>
+                <title>{name}&apos;s Top Ten Games</title>
             </Head>
             {/* Imported header */}
             <Header />
@@ -51,7 +51,7 @@ export default function User({ username, gameList }) {
             {/*The game panel */}
             {!loading ? (<div className="mx-20">
                 <div className="py-2.5">
-                    <h1 className="font-serif font-bold text-3xl">{name}'s Top Ten Games</h1>
+                    <h1 className="font-serif font-bold text-3xl">{name}&apos;s Top Ten Games</h1>
                 </div>
                 {gameList.length > 0 ? (
                     gameList.map((game) => (
