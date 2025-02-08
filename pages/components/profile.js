@@ -30,7 +30,7 @@ export default function Profile({ name, description, profilePic, refresh, myProf
             </div>
             {myProfile && (
                 <button onClick={() => openAddModal()} className="absolute top-5 right-40 h-12 w-34 bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded flex justify-evenly gap-2 items-center">
-                    <FaUserEdit /><p>Edit Profile</p>
+                    <FaUserEdit /><p className="text-white">Edit Profile</p>
                 </button>
             )
             }

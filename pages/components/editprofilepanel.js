@@ -64,7 +64,7 @@ export default function EditProfilePanel({ showModal, setShowModal, currentName,
         </label>
         <label className="block mb-2">
           <p className='font-bold'>Description:</p>
-          <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} className="border rounded-md p-1 w-full" />
+          <textarea type="textarea" value={description} onChange={(e) => setDescription(e.target.value)} className="border rounded-md p-1 w-full" />
         </label>
 
         <label className="block mb-2 font-bold">
@@ -88,7 +88,7 @@ export default function EditProfilePanel({ showModal, setShowModal, currentName,
           <Link href="https://www.freepik.com">Designed by rawpixel.com / Freepik</Link>
         </div>
         {/* Delete account */}
-        <label className='block mb-2 font-bold my-5'>
+        <label className='block mb-2 font-bold my-5 text-red-500'>
           If you would like to delete your account permanently
         </label>
         <p className='italic text-xs text-gray-500 -mt-3 mb-4'>(This cannot be REVERSED!)</p>

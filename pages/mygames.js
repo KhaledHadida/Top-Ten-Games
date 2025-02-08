@@ -14,6 +14,22 @@ import { checkUserAuth } from "./api/userapi";
 import { useAuth } from "../contexts/authcontext";
 //Drag and drop
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragOverlay
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  rectSortingStrategy
+} from "@dnd-kit/sortable";
+import { Box } from "grommet";
 
 //redirecting page
 import RedirectPage from "./components/redirectpage";
@@ -22,12 +38,19 @@ import DeletePanel from "./components/deletepanel";
 
 import Head from 'next/head';
 
+import { IoGridOutline } from "react-icons/io5";
+import { CiBoxList } from "react-icons/ci";
+
+
+
 
 export default function UsersGameList() {
   var [gameList, setGameList] = useState([]);
 
   const [isLoaded, setIsLoading] = useState(false);
   const { isLoggedIn, login, logout } = useAuth();
+  const [isListView, setIsListView] = useState(true);
+  const [activeId, setActiveId] = useState(null);
 
   //This is for redirecting
   const [redirectBool, setRedirectBool] = useState(false);
@@ -157,6 +180,46 @@ export default function UsersGameList() {
 
   };
 
+  const handleDragStart = (event) => {
+    setActiveId(event.active.id);
+  };
+
+  const handleDragEnd = (event) => {
+    setActiveId(null);
+    const { active, over } = event;
+
+    if (!over) return; 
+
+    if (active.id !== over.id) {
+      setGameList((gameList) => {
+        const oldIndex = gameList.findIndex((game) => {
+          return game._id === active.id;
+        });
+        const newIndex = gameList.findIndex((game) => {
+          return game._id === over.id});
+
+    
+        if (oldIndex === -1 || newIndex === -1) return gameList; // Safety check
+    
+        // Create a new array to ensure state updates
+        const updatedList = [...gameList];
+        
+        // Remove item from old position and insert at new position
+        const [movedItem] = updatedList.splice(oldIndex, 1);
+        updatedList.splice(newIndex, 0, movedItem);
+    
+        return updatedList;
+      });
+    }
+  };
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates
+    })
+  );
+
 
   return (
     <main className="min-h-screen">
@@ -168,43 +231,103 @@ export default function UsersGameList() {
       {redirectBool ? (<RedirectPage text={"Seems like your session has expired.. Redirecting you to sign page!"} />
       ) : (!loading ? (<>
         <Profile name={name} description={desc} profilePic={profilePic} refresh={refreshGameList} myProfile={true} />
-      <div className="mx-20">
-        <div className="py-2.5">
+      <div className="mx-32">
+        <div className="py-2.5 flex flex-row justify-between items-center">
           <h1 className="font-serif font-bold text-3xl">My Top Ten Games</h1>
+          <div className="flex flex-row">
+            <button 
+              onClick={() => setIsListView(true)}
+              className="py-2.5 px-5 me-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+              <CiBoxList size={25}/>
+            </button>
+            <button 
+              onClick={() => setIsListView(false)}
+              className="py-2.5 px-5 me-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+              <IoGridOutline size={25}/>
+            </button>
+          </div>
+          
         </div>
-        <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId="gameList">
-            {(provided) => (
-              <div ref={provided.innerRef}>
-                {gameList.map((game, index) => (
-                  <Draggable key={game._id} draggableId={game._id} index={index}>
-                    {(provided) => (
-                      <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                        <GameEntry
-                          key={game._id}
-                          id={game._id}
-                          name={game.name}
-                          reviewDescription={game.reviewDescription}
-                          gameCoverURL={game.gameCoverURL}
-                          rank={game.rank}
-                          gamePicture={game.gameCoverURL}
-                          currentProfile={true}
-                          onDelete={() => {
-                            setCurrentGameId(game._id);
-                            openDeleteModal();
-                          }}
-                          // onDelete={() => handleDeleteGame(game._id)}
-                          editGame={refreshGameList}
-                        />
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+      
+        {isListView ? (
+          <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable droppableId="gameList">
+              {(provided) => (
+                <div className="w-full" ref={provided.innerRef}>
+                  {gameList.map((game, index) => (
+                    <Draggable key={game._id} draggableId={game._id} index={index}>
+                      {(provided) => (
+                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                          <GameEntry
+                            key={game._id}
+                            id={game._id}
+                            name={game.name}
+                            reviewDescription={game.reviewDescription}
+                            gameCoverURL={game.gameCoverURL}
+                            rank={game.rank}
+                            gamePicture={game.gameCoverURL}
+                            currentProfile={true}
+                            view={isListView}
+                            onDelete={() => {
+                              setCurrentGameId(game._id);
+                              openDeleteModal();
+                            }}
+                            // onDelete={() => handleDeleteGame(game._id)}
+                            editGame={refreshGameList}
+                          />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
+        ) : 
+        (
+          <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+          onDragStart={handleDragStart}>
+        <Box flex={true} wrap={true} direction="row" style={{maxWidth: "600px"}}>
+        <SortableContext items={gameList} strategy={rectSortingStrategy}>
+          {gameList.map((game, index) => (
+            <GameEntry
+            key={game._id}
+            id={game._id}
+            name={game.name}
+            reviewDescription={game.reviewDescription}
+            gameCoverURL={game.gameCoverURL}
+            rank={game.rank}
+            gamePicture={game.gameCoverURL}
+            currentProfile={true}
+            view={isListView}
+            onDelete={() => {
+              setCurrentGameId(game._id);
+              openDeleteModal();
+            }}
+            // onDelete={() => handleDeleteGame(game._id)}
+            editGame={refreshGameList}
+            />
+          ))}
+          <DragOverlay>
+            {activeId ? (
+              <div
+                style={{
+                  width: "100px",
+                  height: "100px",
+                  backgroundColor: "red"
+                }}
+              ></div>
+            ) : null}
+          </DragOverlay>
+        </SortableContext>
+        </Box>
+      </DndContext>
+        )}
+        
       </div>
         
 

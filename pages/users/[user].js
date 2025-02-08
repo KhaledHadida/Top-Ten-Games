@@ -56,7 +56,7 @@ export default function User({ username, gameList }) {
                 {gameList.length > 0 ? (
                     gameList.map((game) => (
                         <GameEntry key={game._id} id={game._id} name={game.name} reviewDescription={game.reviewDescription} gameCoverURL={game.gameCoverURL} rank={game.rank} gamePicture={game.gameCoverURL} currentProfile={false}
-                            onDelete={null} editGame={null} />
+                            onDelete={null} editGame={null} view={true} />
                     ))
                 ) : (<p className="text-center italic mt-20">Hmm looks like this user has no favourite games..</p>)}
                 <p></p>

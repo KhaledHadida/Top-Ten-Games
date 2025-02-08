@@ -11,10 +11,16 @@
 }
 
 h1 {
+  color: black;
   font-family: "Della Respira", serif;
 }
 
+p{
+  color: black;
+}
+
 * {
+  /* color: black; */
   font-family: "Open Sans", serif;
 }
 

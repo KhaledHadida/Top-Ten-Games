@@ -74,7 +74,7 @@ export default function SignIn() {
 
     return (
         <>
-            <Header />
+            {/* <Header /> */}
             <div className="flex flex-col min-h-screen drop-shadow-lg" style={{overflow: "hidden"}}>
                 <Head>
                     <title>Sign in</title>
@@ -129,9 +129,8 @@ export default function SignIn() {
                                 </button>)}
 
                             </div>
-                            {/* {loginError ? (signInError.map((error, index) => (<p className="text-red-600" key={index}>{error.message || error}</p>))
-                            ) : (
-                                <></>)} */}
+                            {loginError ? (<p className="mt-2 text-sm text-red-600 dark:text-red-500">There was a problem with your login credentials.</p>)
+                             : (<></>)}
                             {/* register button */}
                             <div>
                                 <p className="mt-5">No account? <Link className="text-blue-600 dark:text-blue-500 hover:underline" href="../register">Register here</Link></p>
