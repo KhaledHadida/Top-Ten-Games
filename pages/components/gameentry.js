@@ -38,12 +38,11 @@ export default function GameEntry({ id, name, reviewDescription, rank, gamePictu
   //   '#B3CDEE'  //Lightest
   // ];
 
-  const style = {
+  const gridStyle = {
     transform: CSS.Transform.toString(transform),
     transition,
-    width: "100px",
-    height: "100px",
-    border: "2px solid red",
+    width: "180px",
+    border: "2px solid black",
     backgroundColor: "#cccccc",
     margin: "10px",
     zIndex: isDragging ? "100" : "auto",
@@ -55,18 +54,18 @@ export default function GameEntry({ id, name, reviewDescription, rank, gamePictu
     <>
     {view ? (<>
         <div className="flex items-center relative">
-        <div className="absolute top-0 left-0 z-10 w-0 h-0 border-t-[100px] border-r-[100px] border-r-transparent">
+        <div className="absolute top-0 left-0 z-10 w-0 h-0 border-t-[100px] border-r-[100px] border-r-transparent border-blue-500">
           {rank === 1 && (
-            <p className="absolute bottom-12 left-3 mx-[2%] text-4xl font-bold text-yellow-500"><FaTrophy /></p>
+            <p className="absolute bottom-12 left-3 mx-[2%] text-4xl font-bold text-yellow-500 glow"><FaTrophy /></p>
           )}
           {rank === 2 && (
-            <p className="absolute bottom-12 left-3 mx-[2%] text-4xl font-bold text-gray-400"><FaTrophy /></p>
+            <p className="absolute bottom-12 left-3 mx-[2%] text-4xl font-bold text-gray-400 glow"><FaTrophy /></p>
           )}
           {rank === 3 && (
-            <p className="absolute bottom-12 left-3 mx-[2%] text-4xl font-bold text-orange-700"><FaTrophy /></p>
+            <p className="absolute bottom-12 left-3 mx-[2%] text-4xl font-bold text-orange-700 glow"><FaTrophy /></p>
           )}
           {rank > 3 && (
-            <p className="absolute bottom-12 left-3 mx-[2%] text-4xl font-bold">{rank || "NA"}</p>
+            <p className="absolute bottom-12 left-3 text-4xl font-bold">{rank || "NA"}</p>
           )}
 
         </div>
@@ -82,7 +81,7 @@ export default function GameEntry({ id, name, reviewDescription, rank, gamePictu
             </div>
             <div className="lg:ml-5 w-8/10 ">
               <h1 className="text-2xl font-bold">{name}</h1>
-              <p className="text-slate-700">{reviewDescription}</p>
+              <p className="text-slate-700">{reviewDescription || <p className="italic text-slate-600">No review description...</p>}</p>
             </div>
             {currentProfile ? (
               <div className="lg:w-1/10 flex justify-end">
@@ -114,8 +113,23 @@ export default function GameEntry({ id, name, reviewDescription, rank, gamePictu
         {/* The "are you sure you want to delete" button */}
       </div>
       </>): (<>
-        <div ref={setNodeRef} {...listeners} {...attributes} style={style}>
-          <img className="lg:mr-5 mb-5 lg:mb-0 rounded-lg" style={{ textAlign: "center", width: "250px" }} src={gamePicture} alt="No Image?"></img>
+        <div ref={setNodeRef} {...listeners} {...attributes} style={rank === 3 ? {width:"233px"}: rank === 2 ? {width:"266px"}: rank === 1 ? {width:"350px"} : gridStyle} className="relative flex flex-col items-center justify-end rounded-lg">
+          {rank === 1 && (
+            <p className="mx-[2%] text-4xl font-bold text-yellow-500"><FaTrophy /></p>
+          )}
+          {rank === 2 && (
+            <p className="mx-[2%] text-4xl font-bold text-gray-400"><FaTrophy /></p>
+          )}
+          {rank === 3 && (
+            <p className="mx-[2%] text-4xl font-bold text-orange-700"><FaTrophy /></p>
+          )}
+          {rank > 3 && (
+            <div className="absolute top-[100%] left-[50%] -translate-x-[50%] -translate-y-[50%] bg-white z-10 rounded-full w-14 h-14 flex items-center justify-center outline outline-2">
+              <p className="text-3xl font-bold">{rank || "NA"}</p>
+            </div>
+          )}
+          <img className="rounded-lg w-full h-auto p-5 bg-[#87c4ff] cursor-grab" src={gamePicture} alt="No Image?">
+          </img>
         </div>
       </>)}
     </>

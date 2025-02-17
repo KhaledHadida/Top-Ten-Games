@@ -65,3 +65,10 @@ body {
     transform: translate(-50%, -50%) scale(1);
   }
 }
+
+.glow {
+  filter: drop-shadow(2px 0 0 white) 
+  drop-shadow(0 2px 0 white)
+  drop-shadow(-2px 0 0 white) 
+  drop-shadow(0 -2px 0 white);
+}
