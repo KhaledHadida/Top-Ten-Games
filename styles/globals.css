@@ -72,3 +72,10 @@ body {
   drop-shadow(-2px 0 0 white) 
   drop-shadow(0 -2px 0 white);
 }
+
+.glow-gray {
+  filter: drop-shadow(2px 0 0 gray) 
+  drop-shadow(0 2px 0 gray)
+  drop-shadow(-2px 0 0 gray) 
+  drop-shadow(0 -2px 0 gray);
+}

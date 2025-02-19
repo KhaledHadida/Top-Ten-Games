@@ -258,7 +258,9 @@ export default function UsersGameList() {
               onClick={() => {
                 console.log(gameList)
                 setIsListView(true)}}
-              className="py-2.5 px-5 me-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+              className={!isListView ?"py-2.5 px-5 me-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700":
+              "py-2.5 px-5 me-2 text-sm font-medium focus:outline-none rounded-full border border-gray-200 bg-gray-100 text-blue-700 focus:z-10"
+              }>
               <CiBoxList size={25}/>
             </button>
 
@@ -274,7 +276,7 @@ export default function UsersGameList() {
                   {gameList.map((game, index) => (
                     <Draggable key={game._id} draggableId={game._id} index={index}>
                       {(provided) => (
-                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="p-2">
                           <GameEntry
                             key={game._id}
                             id={game._id}
@@ -308,7 +310,7 @@ export default function UsersGameList() {
           collisionDetection={closestCenter}
           onDragEnd={handleDragEnd}
           onDragStart={handleDragStart}>
-        <Box flex={true} wrap={true} direction="row" className="max-w-xl justify-center">
+        <Box flex={true} wrap={true} direction="row" className="rounded-lg max-w-xl justify-center mb-10 py-10 bg-gray-200">
         <SortableContext items={gameList} strategy={rectSortingStrategy}>
         <Box direction="row" wrap={true} justify="center" gap="small">
     {[gameList[1],gameList[0],gameList[2]].map((game) => (

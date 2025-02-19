@@ -42,7 +42,6 @@ export default function GameEntry({ id, name, reviewDescription, rank, gamePictu
     transform: CSS.Transform.toString(transform),
     transition,
     width: "180px",
-    border: "2px solid black",
     backgroundColor: "#cccccc",
     margin: "10px",
     zIndex: isDragging ? "100" : "auto",
@@ -53,7 +52,7 @@ export default function GameEntry({ id, name, reviewDescription, rank, gamePictu
     //If view is true, list view
     <>
     {view ? (<>
-        <div className="flex items-center relative">
+        <div className="flex items-center relative hover:translate-x-2">
         <div className="absolute top-0 left-0 z-10 w-0 h-0 border-t-[100px] border-r-[100px] border-r-transparent border-blue-500">
           {rank === 1 && (
             <p className="absolute bottom-12 left-3 mx-[2%] text-4xl font-bold text-yellow-500 glow"><FaTrophy /></p>
@@ -71,7 +70,7 @@ export default function GameEntry({ id, name, reviewDescription, rank, gamePictu
         </div>
         <span hidden>{id}</span>
         {/* FONT HERE This is style below I commented out: min-h-[35vh] max-h-[40vh] overflow-hidden */}
-        <div className="font-serif flex-grow rounded-lg p-4 mb-5 text-gray-900" style={{ backgroundColor: "#87c4ff"}} >
+        <div className="font-serif flex-grow rounded-lg p-4 text-gray-900 bg-[#87c4ff] m-1" >
           <div className="flex flex-col justify-between lg:flex-row relative ">
             {/*This flex is to set the picture and description beside each other horizontally*/}
             <div className="w-full lg:w-2/10 flex items-center">
@@ -113,7 +112,14 @@ export default function GameEntry({ id, name, reviewDescription, rank, gamePictu
         {/* The "are you sure you want to delete" button */}
       </div>
       </>): (<>
-        <div ref={setNodeRef} {...listeners} {...attributes} style={rank === 3 ? {width:"233px"}: rank === 2 ? {width:"266px"}: rank === 1 ? {width:"350px"} : gridStyle} className="relative flex flex-col items-center justify-end rounded-lg">
+        <div ref={setNodeRef} {...listeners} {...attributes} 
+        style={
+          rank === 3 ? {width:"233px", zIndex: isDragging ? "100" : "auto", opacity: isDragging ? 0.3 : 1} : 
+          rank === 2 ? {width:"266px", zIndex: isDragging ? "100" : "auto", opacity: isDragging ? 0.3 : 1} : 
+          rank === 1 ? {width:"350px", zIndex: isDragging ? "100" : "auto", opacity: isDragging ? 0.3 : 1} : 
+          gridStyle
+        }
+        className="relative flex flex-col items-center justify-end rounded-lg hover:-translate-y-5">
           {rank === 1 && (
             <p className="mx-[2%] text-4xl font-bold text-yellow-500"><FaTrophy /></p>
           )}
@@ -124,11 +130,17 @@ export default function GameEntry({ id, name, reviewDescription, rank, gamePictu
             <p className="mx-[2%] text-4xl font-bold text-orange-700"><FaTrophy /></p>
           )}
           {rank > 3 && (
-            <div className="absolute top-[100%] left-[50%] -translate-x-[50%] -translate-y-[50%] bg-white z-10 rounded-full w-14 h-14 flex items-center justify-center outline outline-2">
+            <>
+            {/* <button onClick={openModal} className="ml-5 h-10 w-24 bg-green-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-blue-500 rounded flex justify-evenly gap-2 items-center">
+                  <FaEdit />Edit
+                </button> */}
+            <div className="absolute top-[100%] left-[50%] -translate-x-[50%] -translate-y-[50%] bg-white z-10 rounded-full w-14 h-14 flex items-center justify-center outline outline-2 shadow-lg">
               <p className="text-3xl font-bold">{rank || "NA"}</p>
             </div>
+            </>
           )}
-          <img className="rounded-lg w-full h-auto p-5 bg-[#87c4ff] cursor-grab" src={gamePicture} alt="No Image?">
+          
+          <img className="rounded-lg w-full h-auto p-5 bg-[#87c4ff] cursor-grab shadow-lg" src={gamePicture} alt="No Image?">
           </img>
         </div>
       </>)}
