@@ -2,7 +2,7 @@ import Header from "./header";
 import GameEntry from "./components/gameentry";
 import { useEffect, useState } from 'react';
 import { getCookie } from './api/cookiemanage';
-import { getGameList, deleteGame, addGame, updateGame } from "./api/gamesapi";
+import { getGameList, deleteGame, addGame, updateGame, getCompletedGameList } from "./api/gamesapi";
 //I may just have a separate class for useRouter because it is a commonly used library
 import { useRouter } from "next/router";
 import AddGameEntryPanel from "./components/addgameentrypanel";
@@ -46,6 +46,7 @@ import { CiBoxList } from "react-icons/ci";
 
 export default function UsersGameList() {
   var [gameList, setGameList] = useState([]);
+  var [cGameList, setCGameList] = useState([]);
 
   const [isLoaded, setIsLoading] = useState(false);
   const { isLoggedIn, login, logout } = useAuth();
@@ -113,6 +114,13 @@ export default function UsersGameList() {
           router.push('./signin');
         })
 
+        getCompletedGameList(token).then((gameData) => {
+          console.log(cGameList);
+          setCGameList(gameData);
+        }).catch((error) => {
+          router.push('/signin');
+        })
+
         //Get current user name and desc and profile
         //First search the user up
         setName(userAuth.name);
@@ -125,21 +133,7 @@ export default function UsersGameList() {
     checkAuthentication();
   }, [refresh]); //Only run once when page loads
 
-  //Delete game
-  const handleDeleteGame = (gameID) => {
-    deleteGame(gameID)
-      .then(() => {
-        // Reload the game list after deletion
-        getGameList(token).then((gameData) => {
-          setGameList(gameData);
-        }).catch((error) => {
-          console.error('Error:', error);
-        });
-      })
-      .catch((error) => {
-        console.error('Error deleting game:', error);
-      });
-  };
+  
 
 
   useEffect(() => {
@@ -157,9 +151,23 @@ export default function UsersGameList() {
     };
 
     updateGames();
-  }, [gameList]);
+  }, [gameList, cGameList]);
 
-
+  //Delete game
+  const handleDeleteGame = (gameID) => {
+    deleteGame(gameID)
+      .then(() => {
+        // Reload the game list after deletion
+        getGameList(token).then((gameData) => {
+          setGameList(gameData);
+        }).catch((error) => {
+          console.error('Error:', error);
+        });
+      })
+      .catch((error) => {
+        console.error('Error deleting game:', error);
+      });
+  };
 
   // Define the onDragEnd function
   const onDragEnd = async (result) => {
@@ -184,7 +192,6 @@ export default function UsersGameList() {
   const handleDragStart = (event) => {
     setActiveId(event.active.id);
   };
-
 
   const handleDragEnd = (event) => {
     setActiveId(null);
@@ -224,7 +231,7 @@ export default function UsersGameList() {
       return game._id === activeId;
     });
     return gameList[index].rank
-  }
+  };
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -232,6 +239,8 @@ export default function UsersGameList() {
       coordinateGetter: sortableKeyboardCoordinates
     })
   );
+
+  const [tabIndex, setTabIndex] = useState(0);
 
 
   return (
@@ -245,38 +254,91 @@ export default function UsersGameList() {
       ) : (!loading ? (<>
         <Profile name={name} description={desc} profilePic={profilePic} refresh={refreshGameList} myProfile={true} />
       <div className="mx-32">
-        <div className="py-2.5 flex flex-row justify-between items-center">
-          <h1 className="font-serif font-bold text-3xl">My Top Ten Games</h1>
-          <div className="flex flex-row">
-            <button 
-              onClick={() => setIsListView(false)}
-              className={isListView ? "py-2.5 px-5 me-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" : 
-              "py-2.5 px-5 me-2 text-sm font-medium focus:outline-none rounded-full border border-gray-200 bg-gray-100 text-blue-700 focus:z-10"}>
-              <IoGridOutline size={25}/>
-            </button>
-            <button 
-              onClick={() => {
-                console.log(gameList)
-                setIsListView(true)}}
-              className={!isListView ?"py-2.5 px-5 me-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700":
-              "py-2.5 px-5 me-2 text-sm font-medium focus:outline-none rounded-full border border-gray-200 bg-gray-100 text-blue-700 focus:z-10"
-              }>
-              <CiBoxList size={25}/>
-            </button>
-
-          </div>
-          
+        <div className="flex flex-row gap-10 mt-5">
+          <button 
+            onClick={() => setTabIndex(0)}>
+              Top 10 Games
+          </button>
+          <button
+            onClick={() => setTabIndex(1)}>
+              Completed Games
+          </button>
+          <button 
+            onClick={() => setTabIndex(2)}>
+              Future Games
+          </button>
         </div>
-      
-        {isListView ? (
-          <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId="gameList">
-              {(provided) => (
-                <div className="w-full" ref={provided.innerRef}>
-                  {gameList.map((game, index) => (
-                    <Draggable key={game._id} draggableId={game._id} index={index}>
-                      {(provided) => (
-                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="p-2">
+
+        {/* Top 10 games tab */}
+        {tabIndex === 0 && (
+          <div>
+            <div className="py-2.5 flex flex-row justify-between items-center">
+              <h1 className="font-serif font-bold text-3xl">My Top Ten Games</h1>
+              <div className="flex flex-row">
+                <button 
+                  onClick={() => setIsListView(false)}
+                  className={isListView ? "py-2.5 px-5 me-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" : 
+                  "py-2.5 px-5 me-2 text-sm font-medium focus:outline-none rounded-full border border-gray-200 bg-gray-100 text-blue-700 focus:z-10"}>
+                  <IoGridOutline size={25}/>
+                </button>
+                <button 
+                  onClick={() => {
+                    console.log(gameList)
+                    setIsListView(true)}}
+                  className={!isListView ?"py-2.5 px-5 me-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700":
+                  "py-2.5 px-5 me-2 text-sm font-medium focus:outline-none rounded-full border border-gray-200 bg-gray-100 text-blue-700 focus:z-10"
+                  }>
+                  <CiBoxList size={25}/>
+                </button>
+              </div>
+            </div>
+            {gameList.length > 0 && (
+              <>{isListView ? (
+                <DragDropContext onDragEnd={onDragEnd}>
+                  <Droppable droppableId="gameList">
+                    {(provided) => (
+                      <div className="w-full" ref={provided.innerRef}>
+                        {gameList.map((game, index) => (
+                          <Draggable key={game._id} draggableId={game._id} index={index}>
+                            {(provided) => (
+                              <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="p-2">
+                                <GameEntry
+                                  key={game._id}
+                                  id={game._id}
+                                  name={game.name}
+                                  reviewDescription={game.reviewDescription}
+                                  gameCoverURL={game.gameCoverURL}
+                                  rank={game.rank}
+                                  gamePicture={game.gameCoverURL}
+                                  currentProfile={true}
+                                  view={isListView}
+                                  onDelete={() => {
+                                    setCurrentGameId(game._id);
+                                    openDeleteModal();
+                                  }}
+                                  // onDelete={() => handleDeleteGame(game._id)}
+                                  editGame={refreshGameList}
+                                />
+                              </div>
+                            )}
+                          </Draggable>
+                        ))}
+                        {provided.placeholder}
+                      </div>
+                    )}
+                  </Droppable>
+                </DragDropContext>
+              ) : 
+              (
+                <DndContext
+                  sensors={sensors}
+                  collisionDetection={closestCenter}
+                  onDragEnd={handleDragEnd}
+                  onDragStart={handleDragStart}>
+                  <Box flex={true} wrap={true} direction="row" className="rounded-lg max-w-xl justify-center mb-10 py-10 bg-gray-200">
+                    <SortableContext items={gameList} strategy={rectSortingStrategy}>
+                      <Box direction="row" wrap={true} justify="center" gap="small">
+                        {[gameList[1],gameList[0],gameList[2]].map((game) => (
                           <GameEntry
                             key={game._id}
                             id={game._id}
@@ -291,101 +353,80 @@ export default function UsersGameList() {
                               setCurrentGameId(game._id);
                               openDeleteModal();
                             }}
-                            // onDelete={() => handleDeleteGame(game._id)}
                             editGame={refreshGameList}
                           />
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
-        ) : 
-        (
-          <DndContext
-          sensors={sensors}
-          collisionDetection={closestCenter}
-          onDragEnd={handleDragEnd}
-          onDragStart={handleDragStart}>
-        <Box flex={true} wrap={true} direction="row" className="rounded-lg max-w-xl justify-center mb-10 py-10 bg-gray-200">
-        <SortableContext items={gameList} strategy={rectSortingStrategy}>
-        <Box direction="row" wrap={true} justify="center" gap="small">
-    {[gameList[1],gameList[0],gameList[2]].map((game) => (
-      <GameEntry
-        key={game._id}
-        id={game._id}
-        name={game.name}
-        reviewDescription={game.reviewDescription}
-        gameCoverURL={game.gameCoverURL}
-        rank={game.rank}
-        gamePicture={game.gameCoverURL}
-        currentProfile={true}
-        view={isListView}
-        onDelete={() => {
-          setCurrentGameId(game._id);
-          openDeleteModal();
-        }}
-        editGame={refreshGameList}
-      />
-    ))}
-  </Box>
+                        ))}
+                      </Box>
 
-  {/* Remaining 7 Items */}
-  <Box direction="row" wrap={true} justify="center" gap="small">
-    {gameList.slice(3).map((game) => (
-      <GameEntry
-        key={game._id}
-        id={game._id}
-        name={game.name}
-        reviewDescription={game.reviewDescription}
-        gameCoverURL={game.gameCoverURL}
-        rank={game.rank}
-        gamePicture={game.gameCoverURL}
-        currentProfile={true}
-        view={isListView}
-        onDelete={() => {
-          setCurrentGameId(game._id);
-          openDeleteModal();
-        }}
-        editGame={refreshGameList}
-      />
-    ))}
-  </Box>
-          <DragOverlay>
-            {activeId ? (
-              <div
-                className="rounded-lg cursor-grabbing"
-                onClick={() => findRank(activeId)}
-                style={{
-                  width: findRank(activeId) === 1 ? "350px" : findRank(activeId) === 2 ? "266px": findRank(activeId) === 3 ? "233px": "176px",
-                  height: findRank(activeId) === 1 ? "453px" : findRank(activeId) === 2 ? "341px": findRank(activeId) === 3 ? "297px": "222px",
-                  backgroundColor: "#87c4ff",
-                  opacity: 0.5,
-                  position: "absolute",
-                  top:findRank(activeId) === 1 ? 35 : findRank(activeId) === 2 ? 145: findRank(activeId) === 3 ? 190: 0
-                }}
-              ></div>
-            ) : null}
-          </DragOverlay>
-        </SortableContext>
-        </Box>
-      </DndContext>
+                      {/* Remaining 7 Items */}
+                      <Box direction="row" wrap={true} justify="center" gap="small">
+                        {gameList.slice(3).map((game) => (
+                          <GameEntry
+                            key={game._id}
+                            id={game._id}
+                            name={game.name}
+                            reviewDescription={game.reviewDescription}
+                            gameCoverURL={game.gameCoverURL}
+                            rank={game.rank}
+                            gamePicture={game.gameCoverURL}
+                            currentProfile={true}
+                            view={isListView}
+                            onDelete={() => {
+                              setCurrentGameId(game._id);
+                              openDeleteModal();
+                            }}
+                            editGame={refreshGameList}
+                          />
+                        ))}
+                      </Box>
+                      <DragOverlay>
+                        {activeId ? (
+                          <div
+                            className="rounded-lg cursor-grabbing"
+                            onClick={() => findRank(activeId)}
+                            style={{
+                              width: findRank(activeId) === 1 ? "350px" : findRank(activeId) === 2 ? "266px": findRank(activeId) === 3 ? "233px": "176px",
+                              height: findRank(activeId) === 1 ? "453px" : findRank(activeId) === 2 ? "341px": findRank(activeId) === 3 ? "297px": "222px",
+                              backgroundColor: "#87c4ff",
+                              opacity: 0.5,
+                              position: "absolute",
+                              top:findRank(activeId) === 1 ? 35 : findRank(activeId) === 2 ? 145: findRank(activeId) === 3 ? 190: 0
+                            }}
+                          ></div>
+                        ) : null}
+                      </DragOverlay>
+                    </SortableContext>
+                  </Box>
+                </DndContext>
+              )}</>
+            )}
+            
+
+          {/* If user is not logged in then display a suggestion to login page */}
+          {/* add button */}
+          {gameList.length < 10 && (
+            <div className="justify-center select-none pb-5 flex">
+              <button onClick={() => openAddModal()} className="py-5 px-10 shadow-md no-underline rounded-full bg-green-500 text-white font-semibold border-blue btn-primary hover:text-white hover:bg-blue-light focus:outline-none active:shadow-none mr-2 text-4xl">+</button>
+            </div>
+          )}
+          </div>
+          
         )}
-        
+
+
+        {tabIndex === 1 && (
+          <div>
+            {cGameList.map((game,index) => (
+              <div>{game}</div>
+            ))}
+
+          </div>
+        )}
+
       </div>
         
 
-        {/* If user is not logged in then display a suggestion to login page */}
-        {/* Center the loading animation */}
-        {/* add button */}
-        {gameList.length < 10 && (
-          <div className="justify-center select-none pb-5 flex">
-            <button onClick={() => openAddModal()} className="py-5 px-10 shadow-md no-underline rounded-full bg-green-500 text-white font-semibold border-blue btn-primary hover:text-white hover:bg-blue-light focus:outline-none active:shadow-none mr-2 text-4xl">+</button>
-          </div>
-        )}
+        
         
       </>) : <div className="h-screen flex items-center justify-center"><LoadingAnimation /></div>
       )}

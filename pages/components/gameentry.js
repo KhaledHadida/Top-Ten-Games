@@ -23,21 +23,6 @@ export default function GameEntry({ id, name, reviewDescription, rank, gamePictu
     setIsEditModalOpen(true);
   };
 
-  //the different shades (I have tried accessing these dynamically from tailwind.config.js however it does not work)
-  //For some reason trying to access a custom color dynamically does not work since it is not recognized (so it's just a random string)
-  // const shades = [
-  //   '#417FBF', //Darkest
-  //   '#4E88C2',
-  //   '#5B91C7',
-  //   '#689ACC',
-  //   '#74A3D3',
-  //   '#81ACD8',
-  //   '#8EB5DD',
-  //   '#9BBEE2',
-  //   '#A7C7E7',
-  //   '#B3CDEE'  //Lightest
-  // ];
-
   const gridStyle = {
     transform: CSS.Transform.toString(transform),
     transition,
@@ -52,7 +37,7 @@ export default function GameEntry({ id, name, reviewDescription, rank, gamePictu
     //If view is true, list view
     <>
     {view ? (<>
-        <div className="flex items-center relative hover:translate-x-2">
+        <div className="flex items-center relative transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-105 focus:-translate-y-1 focus:scale-105">
         <div className="absolute top-0 left-0 z-10 w-0 h-0 border-t-[100px] border-r-[100px] border-r-transparent border-blue-500">
           {rank === 1 && (
             <p className="absolute bottom-12 left-3 mx-[2%] text-4xl font-bold text-yellow-500 glow"><FaTrophy /></p>
@@ -119,7 +104,7 @@ export default function GameEntry({ id, name, reviewDescription, rank, gamePictu
           rank === 1 ? {width:"350px", zIndex: isDragging ? "100" : "auto", opacity: isDragging ? 0.3 : 1} : 
           gridStyle
         }
-        className="relative flex flex-col items-center justify-end rounded-lg hover:-translate-y-5">
+        className="relative flex flex-col items-center justify-end rounded-lg transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110">
           {rank === 1 && (
             <p className="mx-[2%] text-4xl font-bold text-yellow-500"><FaTrophy /></p>
           )}
