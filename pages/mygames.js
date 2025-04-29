@@ -6,6 +6,7 @@ import { getGameList, deleteGame, addGame, updateGame, getCompletedGameList } fr
 //I may just have a separate class for useRouter because it is a commonly used library
 import { useRouter } from "next/router";
 import AddGameEntryPanel from "./components/addgameentrypanel";
+import AddCompGamePanel from "./components/addcompgamepanel";
 //Loading components
 import { useLoading } from "../contexts/loadingcontext";
 import LoadingAnimation from "./components/loadinganimation";
@@ -338,24 +339,65 @@ export default function UsersGameList() {
                   <Box flex={true} wrap={true} direction="row" className="rounded-lg max-w-xl justify-center mb-10 py-10 bg-gray-200">
                     <SortableContext items={gameList} strategy={rectSortingStrategy}>
                       <Box direction="row" wrap={true} justify="center" gap="small">
-                        {[gameList[1],gameList[0],gameList[2]].map((game) => (
+                        {gameList.length === 1 ? (
                           <GameEntry
-                            key={game._id}
-                            id={game._id}
-                            name={game.name}
-                            reviewDescription={game.reviewDescription}
-                            gameCoverURL={game.gameCoverURL}
-                            rank={game.rank}
-                            gamePicture={game.gameCoverURL}
+                            key={gameList[0]._id}
+                            id={gameList[0]._id}
+                            name={gameList[0].name}
+                            reviewDescription={gameList[0].reviewDescription}
+                            gameCoverURL={gameList[0].gameCoverURL}
+                            rank={gameList[0].rank}
+                            gamePicture={gameList[0].gameCoverURL}
                             currentProfile={true}
                             view={isListView}
                             onDelete={() => {
-                              setCurrentGameId(game._id);
+                              setCurrentGameId(gameList[0]._id);
                               openDeleteModal();
                             }}
                             editGame={refreshGameList}
                           />
-                        ))}
+
+                        ) : gameList.length === 2 ? (
+                          [gameList[1],gameList[0]].map((game) => (
+                            <GameEntry
+                              key={game._id}
+                              id={game._id}
+                              name={game.name}
+                              reviewDescription={game.reviewDescription}
+                              gameCoverURL={game.gameCoverURL}
+                              rank={game.rank}
+                              gamePicture={game.gameCoverURL}
+                              currentProfile={true}
+                              view={isListView}
+                              onDelete={() => {
+                                setCurrentGameId(game._id);
+                                openDeleteModal();
+                              }}
+                              editGame={refreshGameList}
+                            />
+                          ))
+                        ) : gameList.length === 3 ? (
+                          [gameList[1],gameList[0],gameList[2]].map((game) => (
+                            <GameEntry
+                              key={game._id}
+                              id={game._id}
+                              name={game.name}
+                              reviewDescription={game.reviewDescription}
+                              gameCoverURL={game.gameCoverURL}
+                              rank={game.rank}
+                              gamePicture={game.gameCoverURL}
+                              currentProfile={true}
+                              view={isListView}
+                              onDelete={() => {
+                                setCurrentGameId(game._id);
+                                openDeleteModal();
+                              }}
+                              editGame={refreshGameList}
+                            />
+                          ))
+                        ) : null}
+
+                        
                       </Box>
 
                       {/* Remaining 7 Items */}
@@ -416,10 +458,13 @@ export default function UsersGameList() {
 
         {tabIndex === 1 && (
           <div>
+            <h1 className="font-serif font-bold text-3xl py-2.5">My Top Ten Games</h1>
             {cGameList.map((game,index) => (
               <div>{game}</div>
             ))}
-
+            <div className="justify-center select-none pb-5 flex">
+              <button onClick={() => openAddModal()} className="py-5 px-10 shadow-md no-underline rounded-full bg-green-500 text-white font-semibold border-blue btn-primary hover:text-white hover:bg-blue-light focus:outline-none active:shadow-none mr-2 text-4xl">+</button>
+            </div>
           </div>
         )}
 
@@ -432,8 +477,17 @@ export default function UsersGameList() {
       )}
 
       {/* Add button panel */}
-      {isAddModalOpen && (
-        <AddGameEntryPanel
+      {/* Top games add */}
+      {isAddModalOpen && tabIndex === 0 && (
+          <AddGameEntryPanel
+            showModal={isAddModalOpen}
+            setShowModal={setIsAddModalOpen}
+            addNewGame={refreshGameList}
+          />
+      )}
+      {/* Completed games add */}
+      {isAddModalOpen && tabIndex === 1 && (
+        <AddCompGamePanel
           showModal={isAddModalOpen}
           setShowModal={setIsAddModalOpen}
           addNewGame={refreshGameList}
